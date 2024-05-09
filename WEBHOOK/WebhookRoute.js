@@ -76,5 +76,5 @@ export default function WebhookRoute(app) {
   router.get("/redirect", WebhookController.getRedirect);
   router.get("/redirect-by-id", WebhookController.getRedirectById);
   router.get("/redirect-total", WebhookController.getRedirectTotal);
-  return app.use("/webhooks", router);
+  return app.use("/", router);
 }
