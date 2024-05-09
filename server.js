@@ -4,12 +4,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import http from "http";
 import WebhookRoute from "./WEBHOOK/WebhookRoute";
-const { setTimeout, setInterval } = require("timers");
 
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
-let port = process.env.PORT_SERVER;
+let port = process.env.PORT_SERVER || 3033;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
