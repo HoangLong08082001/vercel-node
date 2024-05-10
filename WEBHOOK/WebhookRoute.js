@@ -1,4 +1,4 @@
-const express = require ("express");
+const express = require("express");
 import WebhookController from "./WebhookController";
 const router = express.Router();
 export default function WebhookRoute(app) {
