@@ -1,9 +1,9 @@
 const { setTimeout, setInterval } = require("timers");
-import request from "request";
-import axios from "axios";
-import WebSocket from "ws";
-import { response } from "express";
-import dotenv from "dotenv";
+const request = require("request");
+const axios = require("axios");
+const WebSocket = require("ws");
+const { response } = require("express");
+const dotenv = require("dotenv");
 dotenv.config();
 
 //Orders
@@ -75,6 +75,7 @@ const getOrderById = async (req, res) => {
         let objitems = response.data.order.line_items;
         let mergedObj = Object.assign({}, objuser, objitems);
         console.log(mergedObj);
+        return res.status(200).send(mergedObj);
       });
     // Trả về dữ liệu từ API
   } catch (error) {
@@ -82,8 +83,6 @@ const getOrderById = async (req, res) => {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-
-  return res.send("get by id");
 };
 const getOrderTotal = async (req, res) => {
   try {
@@ -102,7 +101,7 @@ const getOrderTotal = async (req, res) => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
         let total = response.data.count;
-        console.log(total);
+        return res.status(200).json(response.data);
       });
 
     // Trả về dữ liệu từ API
@@ -111,8 +110,6 @@ const getOrderTotal = async (req, res) => {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-
-  return res.send("total");
 };
 
 //Customers
@@ -161,7 +158,7 @@ const getCustomerById = async (req, res) => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
         let total = response.data;
-        console.log(total);
+        return res.status(200).json(total);
       });
     // Trả về dữ liệu từ API
   } catch (error) {
@@ -169,7 +166,6 @@ const getCustomerById = async (req, res) => {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("customers by id");
 };
 const getTotalCustomers = async (req, res) => {
   try {
@@ -188,7 +184,7 @@ const getTotalCustomers = async (req, res) => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
         let total = response.data.count;
-        console.log(total);
+        return res.status(200).json(response.data);
       });
     // Trả về dữ liệu từ API
   } catch (error) {
@@ -196,7 +192,6 @@ const getTotalCustomers = async (req, res) => {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("customers by id");
 };
 
 //Customers address
@@ -215,12 +210,12 @@ const getCustomersAddress = async (req, res) => {
       )
       .then((response) => {
         console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("Customer address");
 };
 const getCustomersIdAddressId = async (req, res) => {
   let idCustommer = 15517780;
@@ -238,12 +233,12 @@ const getCustomersIdAddressId = async (req, res) => {
       )
       .then((response) => {
         console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("Customer address id");
 };
 
 //Stores
@@ -263,8 +258,9 @@ const getStores = async (req, res) => {
         // setInterval(() => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
-        let total = response.data.count;
+        let total = response.data;
         console.log(total);
+        return res.status(200).json(total);
       });
     // Trả về dữ liệu từ API
   } catch (error) {
@@ -272,7 +268,6 @@ const getStores = async (req, res) => {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("customers by id");
 };
 
 //Products
@@ -321,7 +316,7 @@ const getProductById = async (req, res) => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
         let total = response.data;
-        console.log(total);
+        return res.status(200).json(total);
       });
     // Trả về dữ liệu từ API
   } catch (error) {
@@ -329,7 +324,6 @@ const getProductById = async (req, res) => {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("product by id");
 };
 const getProductTotal = async (req, res) => {
   try {
@@ -348,7 +342,7 @@ const getProductTotal = async (req, res) => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
         let total = response.data.count;
-        console.log(total);
+        return res.status(200).json(response.data);
       });
     // Trả về dữ liệu từ API
   } catch (error) {
@@ -356,7 +350,6 @@ const getProductTotal = async (req, res) => {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("product total");
 };
 
 //collect
@@ -387,7 +380,6 @@ const getCollects = async (req, res) => {
     res.status(500).json({ error: "Error fetching orders" });
   }
 };
-
 const getCollectById = async (req, res) => {
   let id = 35643157;
   try {
@@ -409,7 +401,7 @@ const getCollectById = async (req, res) => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
         let total = response.data;
-        console.log(total);
+        return res.status(200).json(total);
       });
     // Trả về dữ liệu từ API
   } catch (error) {
@@ -417,7 +409,6 @@ const getCollectById = async (req, res) => {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("collects by id");
 };
 const getCollectsTotal = async (req, res) => {
   try {
@@ -429,13 +420,12 @@ const getCollectsTotal = async (req, res) => {
         },
       })
       .then((response) => {
-        console.log(response.data.count);
+        return res.send(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("collect total");
 };
 
 //Custom collect
@@ -471,13 +461,12 @@ const getCustomCollectsId = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("collect custom by id");
 };
 const getCustomCollectsTotal = async (req, res) => {
   let product_id = 35643195;
@@ -555,13 +544,12 @@ const getCustomCollectsEvents = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("custom collections events");
 };
 const getOrdersEvents = async (req, res) => {
   let orders_id = 13529378;
@@ -577,13 +565,12 @@ const getOrdersEvents = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("orders events");
 };
 const getProductsEvents = async (req, res) => {
   let products_id = 35643195;
@@ -599,13 +586,12 @@ const getProductsEvents = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("products events");
 };
 const getEventsTotal = async (req, res) => {
   try {
@@ -617,13 +603,12 @@ const getEventsTotal = async (req, res) => {
         },
       })
       .then((response) => {
-        console.log(response.data.count);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("total events");
 };
 
 //Fulfillment
@@ -663,13 +648,12 @@ const getFulfillmentById = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("fulfillment by id");
 };
 const getFulfillmentTotal = async (req, res) => {
   let orders_id = 13529378;
@@ -685,13 +669,12 @@ const getFulfillmentTotal = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data.int);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("fulfillment total");
 };
 
 //Metafields
@@ -727,13 +710,12 @@ const getCustomCollectMetafields = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("custom collection metafields");
 };
 const getCustomersMetafields = async (req, res) => {
   let customers_id = 15514861;
@@ -749,13 +731,12 @@ const getCustomersMetafields = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("customer metafields");
 };
 const getOrdersMetafields = async (req, res) => {
   let orders_id = 13529378;
@@ -771,13 +752,12 @@ const getOrdersMetafields = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("orders metafields");
 };
 const getProductsMetafields = async (req, res) => {
   let products_id = 35643195;
@@ -793,13 +773,12 @@ const getProductsMetafields = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("products metafields");
 };
 const getMetafieldTotal = async (req, res) => {
   try {
@@ -811,13 +790,12 @@ const getMetafieldTotal = async (req, res) => {
         },
       })
       .then((response) => {
-        console.log(response.data.count);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("total metafields");
 };
 const getProductsByIdMetafields = async (req, res) => {
   try {
@@ -829,14 +807,14 @@ const getProductsByIdMetafields = async (req, res) => {
         },
       })
       .then((response) => {
-        console.log(response.data.count);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("total metafields");
 };
+
 //Price rule
 const getPriceRule = async (req, res) => {
   try {
@@ -870,14 +848,15 @@ const getPriceRuleById = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("price rule by id");
 };
+
+//Refund
 const getRefund = async (req, res) => {
   let orders_id = 13524208;
   try {
@@ -892,14 +871,14 @@ const getRefund = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("refund");
 };
+
 //Transaction
 const getTransaction = async (req, res) => {
   let orders_id = 13524208;
@@ -960,14 +939,15 @@ const getTransactionTotal = async (req, res) => {
         }
       )
       .then((response) => {
-        console.log(response.data.count);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("transactions total");
 };
+
+//Carrie Services
 const getCarrierServices = async (req, res) => {
   try {
     await axios
@@ -978,13 +958,12 @@ const getCarrierServices = async (req, res) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        return res.status(200).json(response.data);
       });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Error fetching orders" });
   }
-  return res.send("carrier service");
 };
 const getCarrierServicesById = async (req, res) => {
   let carrier_services_id;
@@ -1008,6 +987,7 @@ const getCarrierServicesById = async (req, res) => {
   }
   return res.send("carrier service");
 };
+
 //Redirect
 const getRedirect = async (req, res) => {
   try {

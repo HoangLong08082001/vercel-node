@@ -1,4 +1,4 @@
-import express from "express";
+const express = require ("express");
 import WebhookController from "./WebhookController";
 const router = express.Router();
 export default function WebhookRoute(app) {
@@ -13,7 +13,7 @@ export default function WebhookRoute(app) {
   //customers address
   router.get("/custommer-address", WebhookController.getCustomersAddress);
   router.get(
-    "/customerid-addressid",
+    "/customerId-addressId",
     WebhookController.getCustomersIdAddressId
   );
   //store
@@ -55,26 +55,26 @@ export default function WebhookRoute(app) {
   router.get(
     "/metafields-products-by-id",
     WebhookController.getProductsByIdMetafields
-  );
+  ); //delay
   router.get("/metafields-total", WebhookController.getMetafieldTotal);
   //price rule
   router.get("/price-rule", WebhookController.getPriceRule);
-  router.get("/price-rule-by-id", WebhookController.getPriceRuleById);
+  router.get("/price-rule-by-id", WebhookController.getPriceRuleById); //delay
   //Refunds
   router.get("/refund", WebhookController.getRefund);
   //Transaction
   router.get("/transaction", WebhookController.getTransaction);
-  router.get("/transaction-by-id", WebhookController.getTransactionById);
+  router.get("/transaction-by-id", WebhookController.getTransactionById); //delay
   router.get("/transaction-total", WebhookController.getTransactionTotal);
   //Carrier Service
   router.get("/carrier-service", WebhookController.getCarrierServices);
   router.get(
     "/carrier-service-by-id",
     WebhookController.getCarrierServicesById
-  );
+  ); //delay
   //Redirect
   router.get("/redirect", WebhookController.getRedirect);
-  router.get("/redirect-by-id", WebhookController.getRedirectById);
+  router.get("/redirect-by-id", WebhookController.getRedirectById); //delay
   router.get("/redirect-total", WebhookController.getRedirectTotal);
-  return app.use("/", router);
+  return app.use("/webhook", router);
 }

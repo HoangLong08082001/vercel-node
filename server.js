@@ -1,14 +1,16 @@
-import express from "express";
-import dotenv from "dotenv";
-import bodyParser from "body-parser";
-import cors from "cors";
-import http from "http";
+const express = require ("express");
+const dotenv = require ("dotenv");
+const bodyParser = require ("body-parser");
+const cors = require ("cors");
+const http = require ("http");
 import WebhookRoute from "./WEBHOOK/WebhookRoute";
 
+const socketIO = require ("socket.io");
+const io = socketIO();
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
-let port = process.env.PORT_SERVER || 3030;
+let port = process.env.PORT_SERVER || 3031;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
@@ -28,7 +30,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 WebhookRoute(app);
 
-server.listen(port, (err) => {
+app.listen(port, (err) => {
   if (err) {
     console.log(err);
   } else {
