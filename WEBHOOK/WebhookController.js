@@ -72,10 +72,10 @@ const getOrderById = async (req, res) => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
         let objuser = response.data.order.customer;
-        let objitems = response.data.order.line_items;
+        let objitems = response.data;
         let mergedObj = Object.assign({}, objuser, objitems);
         console.log(mergedObj);
-        return res.status(200).send(mergedObj);
+        return res.status(200).send(objitems);
       });
     // Trả về dữ liệu từ API
   } catch (error) {
