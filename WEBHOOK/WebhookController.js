@@ -11,10 +11,10 @@ const getOrders = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/orders.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/orders.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -55,14 +55,14 @@ const getOrders = async (req, res) => {
   }
 };
 const getOrderById = async (req, res) => {
-  let id = 13526413;
+  let id = req.params.orders_id;
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/orders/${id}.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/orders/${id}.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -88,10 +88,10 @@ const getOrderTotal = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/orders/count.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/orders/count.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -117,10 +117,10 @@ const getCustomers = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/customers.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/customers.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -141,14 +141,14 @@ const getCustomers = async (req, res) => {
   }
 };
 const getCustomerById = async (req, res) => {
-  let id = 15514861;
+  let id = req.params.customers_id;
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/customers/${id}.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/customers/${id}.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -171,10 +171,10 @@ const getTotalCustomers = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/customers/count.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/customers/count.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -196,15 +196,15 @@ const getTotalCustomers = async (req, res) => {
 
 //Customers address
 const getCustomersAddress = async (req, res) => {
-  let idCustommer = 15517780;
+  let idCustommer = req.params.customers_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/customers/${idCustommer}/addresses.json`,
+        `https://global-eccop.mysapo.net/admin/customers/${idCustommer}/addresses.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-            password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+            username: "bba3469777fb4483a01c60fe868000e9", // API Key
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
           },
         }
       )
@@ -218,16 +218,16 @@ const getCustomersAddress = async (req, res) => {
   }
 };
 const getCustomersIdAddressId = async (req, res) => {
-  let idCustommer = 15517780;
-  let idAddress = 26297325;
+  let idCustommer = req.params.customers_id;
+  let idAddress = req.params.address_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/customers/${idCustommer}/addresses/${idAddress}.json`,
+        `https://global-eccop.mysapo.net/admin/customers/${idCustommer}/addresses/${idAddress}.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-            password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+            username: "bba3469777fb4483a01c60fe868000e9", // API Key
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
           },
         }
       )
@@ -246,10 +246,10 @@ const getStores = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/store.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/store.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -275,10 +275,10 @@ const getProducts = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/products.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/products.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -299,14 +299,14 @@ const getProducts = async (req, res) => {
   }
 };
 const getProductById = async (req, res) => {
-  let id = 35643157;
+  let id = req.params.products_id;
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/products/${id}.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/products/${id}.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -329,10 +329,10 @@ const getProductTotal = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/products/count.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/products/count.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -357,10 +357,10 @@ const getCollects = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-style.mysapo.net/admin/collects.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/collects.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -381,16 +381,16 @@ const getCollects = async (req, res) => {
   }
 };
 const getCollectById = async (req, res) => {
-  let id = 35643157;
+  let id = req.params.collects_id;
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/collects.json?product_id=${id}`,
+        `https://global-eccop.mysapo.net/admin/collects.json?product_id=${id}`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-            password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+            username: "bba3469777fb4483a01c60fe868000e9", // API Key
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
           },
         }
       )
@@ -413,10 +413,10 @@ const getCollectById = async (req, res) => {
 const getCollectsTotal = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/collects/count.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/collects/count.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -432,10 +432,10 @@ const getCollectsTotal = async (req, res) => {
 const getCustomCollects = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/custom_collections.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/custom_collections.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+          username: "bba3469777fb4483a01c60fe868000e9", // API Key
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
         },
       })
       .then((response) => {
@@ -448,15 +448,15 @@ const getCustomCollects = async (req, res) => {
   }
 };
 const getCustomCollectsId = async (req, res) => {
-  let idCustomCollect = 3390886;
+  let idCustomCollect = req.params.custom_collect_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/custom_collections/${idCustomCollect}.json`,
+        `https://global-eccop.mysapo.net/admin/custom_collections/${idCustomCollect}.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-            password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+            username: "bba3469777fb4483a01c60fe868000e9", // API Key
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
           },
         }
       )
@@ -469,16 +469,16 @@ const getCustomCollectsId = async (req, res) => {
   }
 };
 const getCustomCollectsTotal = async (req, res) => {
-  let product_id = 35643195;
+  let product_id = req.params.products_id;
   try {
     if (product_id) {
       await axios
         .get(
-          `https://global-style.mysapo.net/admin/custom_collections/count.json?product_id=${product_id}`,
+          `https://global-eccop.mysapo.net/admin/custom_collections/count.json?product_id=${product_id}`,
           {
             auth: {
-              username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-              password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+              username: "bba3469777fb4483a01c60fe868000e9", // API Key
+              password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
             },
           }
         )
@@ -489,11 +489,11 @@ const getCustomCollectsTotal = async (req, res) => {
     if (!product_id) {
       await axios
         .get(
-          `https://global-style.mysapo.net/admin/custom_collections/count.json`,
+          `https://global-eccop.mysapo.net/admin/custom_collections/count.json`,
           {
             auth: {
-              username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-              password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
+              username: "bba3469777fb4483a01c60fe868000e9", // API Key
+              password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
             },
           }
         )
@@ -512,15 +512,19 @@ const getCustomCollectsTotal = async (req, res) => {
 const getEvents = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/events.json`, {
-        auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2", // API Key
-          password: "235e3e74436d4a38bd7767f3e183fd50", // API Secret
-        },
-        headers: {
-          Authorization: "b18ebd508aee4afdb910d9420326c63d",
-        },
-      })
+      .get(
+        `https://global-eccop.mysapo.net/admin/events.json
+`,
+        {
+          auth: {
+            username: "bba3469777fb4483a01c60fe868000e9", // API Key
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
+          },
+          headers: {
+            Authorization: "b18ebd508aee4afdb910d9420326c63d",
+          },
+        }
+      )
       .then((response) => {
         console.log(response);
         return res.status(200).json(response.data);
@@ -531,15 +535,15 @@ const getEvents = async (req, res) => {
   }
 };
 const getCustomCollectsEvents = async (req, res) => {
-  let custom_collections_id = 3390886;
+  let custom_collections_id = req.params.custom_collect_events_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/custom_collections/${custom_collections_id}/events.json`,
+        `https://global-eccop.mysapo.net/admin/custom_collections/${custom_collections_id}/events.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -552,15 +556,15 @@ const getCustomCollectsEvents = async (req, res) => {
   }
 };
 const getOrdersEvents = async (req, res) => {
-  let orders_id = 13529378;
+  let orders_id = req.params.orders_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/events.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/events.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -573,15 +577,15 @@ const getOrdersEvents = async (req, res) => {
   }
 };
 const getProductsEvents = async (req, res) => {
-  let products_id = 35643195;
+  let products_id = req.params.products_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/products/${products_id}/events.json`,
+        `https://global-eccop.mysapo.net/admin/products/${products_id}/events.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -596,10 +600,10 @@ const getProductsEvents = async (req, res) => {
 const getEventsTotal = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/events/count.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/events/count.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2",
-          password: "235e3e74436d4a38bd7767f3e183fd50",
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
         },
       })
       .then((response) => {
@@ -613,15 +617,15 @@ const getEventsTotal = async (req, res) => {
 
 //Fulfillment
 const getFulfillment = async (req, res) => {
-  let orders_id = 13529378;
+  let orders_id = req.params.orders_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/fulfillments.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/fulfillments.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -634,16 +638,16 @@ const getFulfillment = async (req, res) => {
   }
 };
 const getFulfillmentById = async (req, res) => {
-  let orders_id = 13529378;
-  let fulfillment_id = 11570149;
+  let orders_id = req.params.orders_id;
+  let fulfillment_id = req.params.fulfillment_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/fulfillments/${fulfillment_id}.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/fulfillments/${fulfillment_id}.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -656,15 +660,15 @@ const getFulfillmentById = async (req, res) => {
   }
 };
 const getFulfillmentTotal = async (req, res) => {
-  let orders_id = 13529378;
+  let orders_id = req.params.orders_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/fulfillments/count.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/fulfillments/count.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -681,10 +685,10 @@ const getFulfillmentTotal = async (req, res) => {
 const getMetafields = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/metafields.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/metafields.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2",
-          password: "235e3e74436d4a38bd7767f3e183fd50",
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
         },
       })
       .then((response) => {
@@ -697,15 +701,15 @@ const getMetafields = async (req, res) => {
   }
 };
 const getCustomCollectMetafields = async (req, res) => {
-  let custom_collection_id = 13529378;
+  let custom_collection_id = req.params.custom_collection_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/custom_collections/${custom_collection_id}/metafields.json`,
+        `https://global-eccop.mysapo.net/admin/custom_collections/${custom_collection_id}/metafields.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -718,15 +722,15 @@ const getCustomCollectMetafields = async (req, res) => {
   }
 };
 const getCustomersMetafields = async (req, res) => {
-  let customers_id = 15514861;
+  let customers_id = req.params.customers_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/customers/${customers_id}/metafields.json`,
+        `https://global-eccop.mysapo.net/admin/customers/${customers_id}/metafields.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -739,15 +743,15 @@ const getCustomersMetafields = async (req, res) => {
   }
 };
 const getOrdersMetafields = async (req, res) => {
-  let orders_id = 13529378;
+  let orders_id = req.params.orders_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/metafields.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/metafields.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -760,15 +764,15 @@ const getOrdersMetafields = async (req, res) => {
   }
 };
 const getProductsMetafields = async (req, res) => {
-  let products_id = 35643195;
+  let products_id = req.params.products_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/products/${products_id}/metafields.json`,
+        `https://global-eccop.mysapo.net/admin/products/${products_id}/metafields.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -783,10 +787,10 @@ const getProductsMetafields = async (req, res) => {
 const getMetafieldTotal = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/metafields/count.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/metafields/count.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2",
-          password: "235e3e74436d4a38bd7767f3e183fd50",
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
         },
       })
       .then((response) => {
@@ -800,10 +804,10 @@ const getMetafieldTotal = async (req, res) => {
 const getProductsByIdMetafields = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/metafields/count.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/metafields/count.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2",
-          password: "235e3e74436d4a38bd7767f3e183fd50",
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
         },
       })
       .then((response) => {
@@ -819,10 +823,10 @@ const getProductsByIdMetafields = async (req, res) => {
 const getPriceRule = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/price_rules.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/price_rules.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2",
-          password: "235e3e74436d4a38bd7767f3e183fd50",
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
         },
       })
       .then((response) => {
@@ -835,15 +839,15 @@ const getPriceRule = async (req, res) => {
   }
 };
 const getPriceRuleById = async (req, res) => {
-  let priceRule_id;
+  let priceRule_id = req.params.priceRule_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/price_rules/${priceRule_id}.json`,
+        `https://global-eccop.mysapo.net/admin/price_rules/${priceRule_id}.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -858,15 +862,15 @@ const getPriceRuleById = async (req, res) => {
 
 //Refund
 const getRefund = async (req, res) => {
-  let orders_id = 13524208;
+  let orders_id = req.params.orders_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/refunds.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/refunds.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -881,15 +885,15 @@ const getRefund = async (req, res) => {
 
 //Transaction
 const getTransaction = async (req, res) => {
-  let orders_id = 13524208;
+  let orders_id = req.params.orders_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/transactions.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/transactions.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -903,16 +907,16 @@ const getTransaction = async (req, res) => {
   }
 };
 const getTransactionById = async (req, res) => {
-  let orders_id = 13524208;
-  let transaction_id;
+  let orders_id = req.params.orders_id;
+  let transaction_id = req.params.transaction_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/transactions/${transaction_id}.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/transactions/${transaction_id}.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -926,15 +930,15 @@ const getTransactionById = async (req, res) => {
   return res.send("transactions by id");
 };
 const getTransactionTotal = async (req, res) => {
-  let orders_id = 13524208;
+  let orders_id = req.params.orders_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/orders/${orders_id}/transactions/count.json`,
+        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/transactions/count.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -951,10 +955,10 @@ const getTransactionTotal = async (req, res) => {
 const getCarrierServices = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/carrier_services.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/carrier_services.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2",
-          password: "235e3e74436d4a38bd7767f3e183fd50",
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
         },
       })
       .then((response) => {
@@ -966,15 +970,15 @@ const getCarrierServices = async (req, res) => {
   }
 };
 const getCarrierServicesById = async (req, res) => {
-  let carrier_services_id;
+  let carrier_services_id = req.params.carrier_services_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/carrier_services/${carrier_services_id}.json`,
+        `https://global-eccop.mysapo.net/admin/carrier_services/${carrier_services_id}.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -992,10 +996,10 @@ const getCarrierServicesById = async (req, res) => {
 const getRedirect = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/redirects.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/redirects.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2",
-          password: "235e3e74436d4a38bd7767f3e183fd50",
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
         },
       })
       .then((response) => {
@@ -1008,15 +1012,15 @@ const getRedirect = async (req, res) => {
   }
 };
 const getRedirectById = async (req, res) => {
-  let redirect_id;
+  let redirect_id = req.params.redirect_id;
   try {
     await axios
       .get(
-        `https://global-style.mysapo.net/admin/redirects/${redirect_id}.json`,
+        `https://global-eccop.mysapo.net/admin/redirects/${redirect_id}.json`,
         {
           auth: {
-            username: "f65ea5edfe574e60b7f1745efa0659c2",
-            password: "235e3e74436d4a38bd7767f3e183fd50",
+            username: "bba3469777fb4483a01c60fe868000e9",
+            password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
           },
         }
       )
@@ -1032,10 +1036,10 @@ const getRedirectById = async (req, res) => {
 const getRedirectTotal = async (req, res) => {
   try {
     await axios
-      .get(`https://global-style.mysapo.net/admin/redirects/count.json`, {
+      .get(`https://global-eccop.mysapo.net/admin/redirects/count.json`, {
         auth: {
-          username: "f65ea5edfe574e60b7f1745efa0659c2",
-          password: "235e3e74436d4a38bd7767f3e183fd50",
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
         },
       })
       .then((response) => {
