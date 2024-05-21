@@ -115,5 +115,7 @@ export default function WebhookRoute(app) {
   router.get("/redirect", WebhookController.getRedirect);
   router.get("/redirect-by-id/:redirect_id", WebhookController.getRedirectById); //delay
   router.get("/redirect-total", WebhookController.getRedirectTotal);
+  //Variant
+  router.get("/products-variant", WebhookController.getVariants);
   return app.use("/webhook", router);
 }

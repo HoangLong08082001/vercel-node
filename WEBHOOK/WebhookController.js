@@ -3,6 +3,8 @@ const request = require("request");
 const axios = require("axios");
 const WebSocket = require("ws");
 const { response } = require("express");
+import pool from "../config/database";
+import WebhookModal from "./WebhookModal";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -23,9 +25,9 @@ const getOrders = async (req, res) => {
         // setInterval(() => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
-        let objuser = response.data.orders[1].user;
-        let objitems = response.data.orders[1].line_items;
-        let mergedObj = Object.assign({}, objuser, objitems);
+        // let objuser = response.data.orders[1].user;
+        // let objitems = response.data.orders[1].line_items;
+        // let mergedObj = Object.assign({}, objuser, objitems);
 
         // console.log(mergedObj);
         // for (let i = 0; i < response.data.orders.length; i++) {
@@ -44,8 +46,35 @@ const getOrders = async (req, res) => {
         //     )
         //   );
         // }
-        console.log(response.data);
-        return res.status(200).json(response.data);
+        //paid fulfilled open
+        const mapValues = response.data.orders.map((item) => [
+          item.id,
+          item.financial_status,
+          item.fulfillment_status,
+          item.status,
+          item.landing_site,
+        ]);
+        if (mapValues) {
+          const query = `
+          INSERT INTO orders (id_orders_sapo, financial_status, fulfillment_status, status, referral_link)
+          VALUES ?
+          ON DUPLICATE KEY UPDATE
+          id_orders_sapo = VALUES(id_orders_sapo),
+          financial_status = VALUES(financial_status),
+          fulfillment_status = VALUES(fulfillment_status),
+          status = VALUES(status),
+          referral_link = VALUES(referral_link)
+        `;
+          pool.query(query, [mapValues], (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            if (result) {
+                return res.status(200).json(response.data);
+              
+            }
+          });
+        }
       });
     // Trả về dữ liệu từ API
   } catch (error) {
@@ -74,7 +103,31 @@ const getOrderById = async (req, res) => {
         let objuser = response.data.order.customer;
         let objitems = response.data;
         let mergedObj = Object.assign({}, objuser, objitems);
-        console.log(mergedObj);
+        //     const query = `
+        //   INSERT INTO orders (id_orders_sapo, financial_status, fulfillment_status, status_orders)
+        //   VALUES (?, ?, ?, ?)
+        //   ON DUPLICATE KEY UPDATE
+        //   id_orders_sapo = VALUES(id_orders_sapo),
+        //   financial_status = VALUES(financial_status),
+        //   fulfillment_status = VALUES(fulfillment_status),
+        //   status_orders = VALUES(status_orders)
+        // `;
+        //     pool.query(
+        //       query,
+        //       [
+        //         objitems.order.id,
+        //         objitems.order.financial_status,
+        //         objitems.order.fulfillment_status,
+        //         objitems.order.status_orders,
+        //       ],
+        //       (err, result) => {
+        //         if (err) {
+        //           console.log(err);
+        //         } else {
+        //           console.log(result);
+        //         }
+        //       }
+        //     );
         return res.status(200).send(objitems);
       });
     // Trả về dữ liệu từ API
@@ -288,7 +341,26 @@ const getProducts = async (req, res) => {
         //   console.log(response.data.orders[0].customer);
         // }, 1000);
         let total = response.data;
-        console.log(total);
+        const mapValue = response.data.products.map((item) => [
+          item.id,
+          item.name,
+          item.content,
+          item.variants,
+        ]);
+        const query = ` INSERT INTO products (id_products_sapo,	name_products,	description,	price_products)
+          VALUES ?
+          ON DUPLICATE KEY UPDATE
+          id_products_sapo = VALUES(id_products_sapo),
+          name_products = VALUES(name_products),
+          description = VALUES(description),
+          price_products = VALUES(price_products)`;
+        pool.query(query, [mapValue], (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(result);
+          }
+        });
         return res.status(200).json(total);
       });
     // Trả về dữ liệu từ API
@@ -1051,6 +1123,43 @@ const getRedirectTotal = async (req, res) => {
     res.status(500).json({ error: "Error fetching orders" });
   }
 };
+
+//Variants
+const getVariants = async (req, res) => {
+  try {
+    await axios
+      .get("https://global-eccop.mysapo.net/admin/variants.json", {
+        auth: {
+          username: "bba3469777fb4483a01c60fe868000e9",
+          password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
+        },
+      })
+      .then((response) => {
+        const mapValue = response.data.variants.map((item) => [
+          item.sku,
+          item.price,
+        ]);
+        const query = ` INSERT INTO products (id_products_sapo,	price)
+          VALUES ?
+          ON DUPLICATE KEY UPDATE
+          id_products_sapo = VALUES(id_products_sapo),
+          price = VALUES(price)`;
+        pool.query(query, [mapValue], (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          if (result) {
+            setInterval(() => {
+              return res.status(200).json(response.data);
+            }, 2000);
+          }
+        });
+      });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ error: "Error fetching orders" });
+  }
+};
 module.exports = {
   getOrders,
   getOrderById,
@@ -1096,4 +1205,5 @@ module.exports = {
   getRedirect,
   getRedirectById,
   getRedirectTotal,
+  getVariants,
 };

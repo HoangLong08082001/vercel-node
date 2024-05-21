@@ -1,11 +1,13 @@
-const express = require ("express");
-const dotenv = require ("dotenv");
-const bodyParser = require ("body-parser");
-const cors = require ("cors");
-const http = require ("http");
+const express = require("express");
+const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const http = require("http");
+import CollaboratorRoute from "./API/Collaborator/CollaboratorRoute";
+import "./config/database";
 import WebhookRoute from "./WEBHOOK/WebhookRoute";
 
-const socketIO = require ("socket.io");
+const socketIO = require("socket.io");
 const io = socketIO();
 dotenv.config();
 const app = express();
@@ -29,7 +31,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 WebhookRoute(app);
-
+CollaboratorRoute(app);
 app.listen(port, (err) => {
   if (err) {
     console.log(err);
