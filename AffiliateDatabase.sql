@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th5 21, 2024 lúc 03:30 AM
+-- Thời gian đã tạo: Th5 23, 2024 lúc 03:30 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -31,6 +31,7 @@ CREATE TABLE `campaign` (
   `id_campaign` int(11) NOT NULL,
   `id_collaborator` int(11) DEFAULT NULL,
   `id_orders` int(11) DEFAULT NULL,
+  `link_product` varchar(200) DEFAULT NULL,
   `name_campaign` varchar(255) DEFAULT NULL,
   `personal_tax` varchar(255) DEFAULT NULL,
   `affiliate_tax` varchar(255) DEFAULT NULL,
@@ -70,9 +71,10 @@ CREATE TABLE `collaborator` (
   `phone` varchar(255) DEFAULT NULL,
   `presenter_phone` varchar(255) DEFAULT NULL,
   `status_collaborator` int(11) DEFAULT NULL,
+  `status_leader` int(11) DEFAULT NULL,
   `avatar` blob DEFAULT NULL,
   `code_verify` varchar(255) DEFAULT NULL,
-  `date_create` date DEFAULT NULL,
+  `date_create` timestamp NULL DEFAULT current_timestamp(),
   `time_create` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -80,11 +82,13 @@ CREATE TABLE `collaborator` (
 -- Đang đổ dữ liệu cho bảng `collaborator`
 --
 
-INSERT INTO `collaborator` (`id_collaborator`, `id_payment`, `name_collaborator`, `password_collaborator`, `email_collaborator`, `gender`, `address_collaborator`, `phone`, `presenter_phone`, `status_collaborator`, `avatar`, `code_verify`, `date_create`, `time_create`) VALUES
-(2, NULL, 'Long', '$2b$10$Xhlw.Mx/lDj/mosPKwOgm.DMjw2fQTXg7y6gOUWtgXCKMPXYKZjwG', 'long123', 1, '123', '0909000999', '0909788877', 1, NULL, NULL, NULL, '2024-05-20 14:03:23'),
-(3, NULL, 'ha', '$2b$10$KDRXQW8bqrOMg68ma1oclOGh70dODgt9hlhVfVYyKjch0d.CKoSkW', 'ha123', 1, '321', '90999', '90909', 1, NULL, NULL, NULL, '2024-05-20 14:14:33'),
-(4, NULL, 'Thien', '$2b$10$BOwVjVSNu/0tNkGOt6vEjeILxYXjUjUYNdsoq0TMQBvTtZ8LnatXm', 'thien123', 1, '99', '0909', '0908', 1, NULL, NULL, NULL, '2024-05-20 14:17:37'),
-(5, NULL, 'khoa Dang', '$2b$10$KsV4KCad9xCOXyRN3OP8geScMAFNBwIF.aHncSx9o4TthTJ./9o2G', 'khoa123', 1, '0909', '9090123123', '0908221112', 1, NULL, NULL, NULL, '2024-05-20 14:31:44');
+INSERT INTO `collaborator` (`id_collaborator`, `id_payment`, `name_collaborator`, `password_collaborator`, `email_collaborator`, `gender`, `address_collaborator`, `phone`, `presenter_phone`, `status_collaborator`, `status_leader`, `avatar`, `code_verify`, `date_create`, `time_create`) VALUES
+(13, NULL, 'Long', '$2b$10$yFyRgQs4WFA/n2L54Qe.muGHSWrTzBdZyTtoQpa0pFe8gKOtW21.e', 'long123@gmail.com', NULL, NULL, '996878668', NULL, 1, 1, NULL, '673469', '2024-05-22 01:45:39', '2024-05-22 08:21:35'),
+(14, NULL, 'Linh', '$2b$10$vx501iw9Hi5.3nouHcltBOw7YjK7D4BNPgJXyvo4sEksWYyTZXhyi', 'linh123@gmail.com', NULL, NULL, '0989990889', '0909889990', 2, 1, NULL, '163244', '2024-05-22 03:32:38', '2024-05-22 08:35:46'),
+(15, NULL, 'khoa', '$2b$10$gvicBPlbWvfji5MNPUf4uOhH1h6yDj1bh1dl9PQhwMf7xhdg/OY/q', 'Khoadang123@gmail.com', NULL, NULL, '0999668712', NULL, 1, 0, NULL, '539993', '2024-05-22 03:35:04', '2024-05-22 03:35:04'),
+(16, NULL, 'Ha', '$2b$10$fm054vtJv1l6j7WPp31qqeNBnmNcU4F9UWwXs2/cY/.40kpC.ujbO', 'ha123@gmail.com', NULL, NULL, '0919559679', NULL, 1, 0, NULL, '852870', '2024-05-22 03:36:30', '2024-05-22 03:36:30'),
+(17, NULL, 'My', '$2b$10$3X6crwZVeLiv.731myLl3OCkyeAd3v7RS3iYeXHS5FnYQXYRHubRu', 'mychu123@gmail.com', NULL, NULL, '0879669779', NULL, 1, 0, NULL, '962158', '2024-05-22 03:38:13', '2024-05-22 03:38:13'),
+(18, NULL, 'Trinh', '$2b$10$Gpt.56YYsif5hBgYjwTvn.1BIoq7CD0mAFtNAM5QmdpE026DZYDzW', 'trinh123@gmail.com', NULL, NULL, '0989779880', NULL, 1, 1, NULL, '324828', '2024-05-22 13:42:40', '2024-05-22 13:42:40');
 
 -- --------------------------------------------------------
 
@@ -171,7 +175,8 @@ INSERT INTO `orders` (`id_orders`, `id_orders_sapo`, `financial_status`, `fulfil
 (101, '13576637', 'pending', NULL, 'open', '/favicon.ico'),
 (102, '13570676', 'paid', 'fulfilled', 'open', NULL),
 (103, '13562791', 'paid', 'fulfilled', 'open', NULL),
-(104, '13562785', 'paid', NULL, 'open', NULL);
+(104, '13562785', 'paid', NULL, 'open', NULL),
+(119, '13598259', 'paid', 'fulfilled', 'open', NULL);
 
 -- --------------------------------------------------------
 
@@ -193,9 +198,12 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`id_payment`, `total_recived`, `total_withdrawn`, `id_collaborator`, `date_payment`, `time_payment`) VALUES
-(1, 0, 0, NULL, NULL, '2024-05-20 14:03:23'),
-(2, 0, 0, 4, NULL, '2024-05-20 14:17:37'),
-(3, 0, 0, 5, NULL, '2024-05-20 14:31:44');
+(11, 0, 0, 13, NULL, '2024-05-22 01:45:39'),
+(12, 0, 0, 14, NULL, '2024-05-22 03:32:38'),
+(13, 0, 0, 15, NULL, '2024-05-22 03:35:04'),
+(14, 0, 0, 16, NULL, '2024-05-22 03:36:30'),
+(15, 0, 0, 17, NULL, '2024-05-22 03:38:13'),
+(16, 0, 0, 18, NULL, '2024-05-22 13:42:40');
 
 -- --------------------------------------------------------
 
@@ -275,6 +283,15 @@ CREATE TABLE `Team` (
   `time_create` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `Team`
+--
+
+INSERT INTO `Team` (`id_team`, `quantity`, `link_team`, `qr_code`, `date_create`, `time_create`) VALUES
+(1, 1, 'https://ecoop.vn/', NULL, NULL, '2024-05-22 07:59:36'),
+(2, 1, 'https://ecoop.vn/', NULL, NULL, '2024-05-22 08:21:35'),
+(3, 1, 'https://ecoop.vn/', NULL, NULL, '2024-05-22 13:44:09');
+
 -- --------------------------------------------------------
 
 --
@@ -298,6 +315,15 @@ CREATE TABLE `team_collaborator` (
   `id_team` int(11) DEFAULT NULL,
   `id_collaborator` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `team_collaborator`
+--
+
+INSERT INTO `team_collaborator` (`id_team_collaborator`, `id_team`, `id_collaborator`) VALUES
+(1, 1, 14),
+(2, 2, 13),
+(3, 3, 18);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -424,7 +450,7 @@ ALTER TABLE `campaign_products`
 -- AUTO_INCREMENT cho bảng `collaborator`
 --
 ALTER TABLE `collaborator`
-  MODIFY `id_collaborator` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_collaborator` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `collaborator_campaign`
@@ -454,13 +480,13 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_orders` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id_orders` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT cho bảng `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id_payment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_payment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -478,7 +504,7 @@ ALTER TABLE `rule`
 -- AUTO_INCREMENT cho bảng `Team`
 --
 ALTER TABLE `Team`
-  MODIFY `id_team` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_team` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `team_campaign`
@@ -490,7 +516,7 @@ ALTER TABLE `team_campaign`
 -- AUTO_INCREMENT cho bảng `team_collaborator`
 --
 ALTER TABLE `team_collaborator`
-  MODIFY `id_team_collaborator` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_team_collaborator` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

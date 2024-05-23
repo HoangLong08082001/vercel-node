@@ -13,7 +13,7 @@ const getOrders = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/orders.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/orders.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -70,8 +70,7 @@ const getOrders = async (req, res) => {
               console.log(err);
             }
             if (result) {
-                return res.status(200).json(response.data);
-              
+              return res.status(200).json(response.data);
             }
           });
         }
@@ -88,7 +87,7 @@ const getOrderById = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/orders/${id}.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/orders/${id}.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -141,7 +140,7 @@ const getOrderTotal = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/orders/count.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/orders/count.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -170,7 +169,7 @@ const getCustomers = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/customers.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/customers.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -198,7 +197,7 @@ const getCustomerById = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/customers/${id}.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/customers/${id}.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -224,7 +223,7 @@ const getTotalCustomers = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/customers/count.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/customers/count.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -253,7 +252,7 @@ const getCustomersAddress = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/customers/${idCustommer}/addresses.json`,
+        `https://apecspaceglobal.mysapo.net/admin/customers/${idCustommer}/addresses.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9", // API Key
@@ -276,7 +275,7 @@ const getCustomersIdAddressId = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/customers/${idCustommer}/addresses/${idAddress}.json`,
+        `https://apecspaceglobal.mysapo.net/admin/customers/${idCustommer}/addresses/${idAddress}.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9", // API Key
@@ -299,7 +298,7 @@ const getStores = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/store.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/store.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -328,7 +327,7 @@ const getProducts = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/products.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/products.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -375,7 +374,7 @@ const getProductById = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/products/${id}.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/products/${id}.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -401,7 +400,7 @@ const getProductTotal = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/products/count.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/products/count.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -429,7 +428,7 @@ const getCollects = async (req, res) => {
   try {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/collects.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/collects.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -458,7 +457,7 @@ const getCollectById = async (req, res) => {
     // Thực hiện yêu cầu HTTP sử dụng axios
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/collects.json?product_id=${id}`,
+        `https://apecspaceglobal.mysapo.net/admin/collects.json?product_id=${id}`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9", // API Key
@@ -485,7 +484,7 @@ const getCollectById = async (req, res) => {
 const getCollectsTotal = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/collects/count.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/collects/count.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -504,7 +503,7 @@ const getCollectsTotal = async (req, res) => {
 const getCustomCollects = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/custom_collections.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/custom_collections.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9", // API Key
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b", // API Secret
@@ -524,7 +523,7 @@ const getCustomCollectsId = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/custom_collections/${idCustomCollect}.json`,
+        `https://apecspaceglobal.mysapo.net/admin/custom_collections/${idCustomCollect}.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9", // API Key
@@ -546,7 +545,7 @@ const getCustomCollectsTotal = async (req, res) => {
     if (product_id) {
       await axios
         .get(
-          `https://global-eccop.mysapo.net/admin/custom_collections/count.json?product_id=${product_id}`,
+          `https://apecspaceglobal.mysapo.net/admin/custom_collections/count.json?product_id=${product_id}`,
           {
             auth: {
               username: "bba3469777fb4483a01c60fe868000e9", // API Key
@@ -561,7 +560,7 @@ const getCustomCollectsTotal = async (req, res) => {
     if (!product_id) {
       await axios
         .get(
-          `https://global-eccop.mysapo.net/admin/custom_collections/count.json`,
+          `https://apecspaceglobal.mysapo.net/admin/custom_collections/count.json`,
           {
             auth: {
               username: "bba3469777fb4483a01c60fe868000e9", // API Key
@@ -585,7 +584,7 @@ const getEvents = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/events.json
+        `https://apecspaceglobal.mysapo.net/admin/events.json
 `,
         {
           auth: {
@@ -611,7 +610,7 @@ const getCustomCollectsEvents = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/custom_collections/${custom_collections_id}/events.json`,
+        `https://apecspaceglobal.mysapo.net/admin/custom_collections/${custom_collections_id}/events.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -632,7 +631,7 @@ const getOrdersEvents = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/events.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/events.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -653,7 +652,7 @@ const getProductsEvents = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/products/${products_id}/events.json`,
+        `https://apecspaceglobal.mysapo.net/admin/products/${products_id}/events.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -672,7 +671,7 @@ const getProductsEvents = async (req, res) => {
 const getEventsTotal = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/events/count.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/events/count.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
@@ -693,7 +692,7 @@ const getFulfillment = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/fulfillments.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/fulfillments.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -715,7 +714,7 @@ const getFulfillmentById = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/fulfillments/${fulfillment_id}.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/fulfillments/${fulfillment_id}.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -736,7 +735,7 @@ const getFulfillmentTotal = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/fulfillments/count.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/fulfillments/count.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -757,7 +756,7 @@ const getFulfillmentTotal = async (req, res) => {
 const getMetafields = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/metafields.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/metafields.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
@@ -777,7 +776,7 @@ const getCustomCollectMetafields = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/custom_collections/${custom_collection_id}/metafields.json`,
+        `https://apecspaceglobal.mysapo.net/admin/custom_collections/${custom_collection_id}/metafields.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -798,7 +797,7 @@ const getCustomersMetafields = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/customers/${customers_id}/metafields.json`,
+        `https://apecspaceglobal.mysapo.net/admin/customers/${customers_id}/metafields.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -819,7 +818,7 @@ const getOrdersMetafields = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/metafields.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/metafields.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -840,7 +839,7 @@ const getProductsMetafields = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/products/${products_id}/metafields.json`,
+        `https://apecspaceglobal.mysapo.net/admin/products/${products_id}/metafields.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -859,7 +858,7 @@ const getProductsMetafields = async (req, res) => {
 const getMetafieldTotal = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/metafields/count.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/metafields/count.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
@@ -876,7 +875,7 @@ const getMetafieldTotal = async (req, res) => {
 const getProductsByIdMetafields = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/metafields/count.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/metafields/count.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
@@ -895,7 +894,7 @@ const getProductsByIdMetafields = async (req, res) => {
 const getPriceRule = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/price_rules.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/price_rules.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
@@ -915,7 +914,7 @@ const getPriceRuleById = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/price_rules/${priceRule_id}.json`,
+        `https://apecspaceglobal.mysapo.net/admin/price_rules/${priceRule_id}.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -938,7 +937,7 @@ const getRefund = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/refunds.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/refunds.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -961,7 +960,7 @@ const getTransaction = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/transactions.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/transactions.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -984,7 +983,7 @@ const getTransactionById = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/transactions/${transaction_id}.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/transactions/${transaction_id}.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -1006,7 +1005,7 @@ const getTransactionTotal = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/orders/${orders_id}/transactions/count.json`,
+        `https://apecspaceglobal.mysapo.net/admin/orders/${orders_id}/transactions/count.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -1027,7 +1026,7 @@ const getTransactionTotal = async (req, res) => {
 const getCarrierServices = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/carrier_services.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/carrier_services.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
@@ -1046,7 +1045,7 @@ const getCarrierServicesById = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/carrier_services/${carrier_services_id}.json`,
+        `https://apecspaceglobal.mysapo.net/admin/carrier_services/${carrier_services_id}.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -1068,7 +1067,7 @@ const getCarrierServicesById = async (req, res) => {
 const getRedirect = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/redirects.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/redirects.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
@@ -1088,7 +1087,7 @@ const getRedirectById = async (req, res) => {
   try {
     await axios
       .get(
-        `https://global-eccop.mysapo.net/admin/redirects/${redirect_id}.json`,
+        `https://apecspaceglobal.mysapo.net/admin/redirects/${redirect_id}.json`,
         {
           auth: {
             username: "bba3469777fb4483a01c60fe868000e9",
@@ -1108,7 +1107,7 @@ const getRedirectById = async (req, res) => {
 const getRedirectTotal = async (req, res) => {
   try {
     await axios
-      .get(`https://global-eccop.mysapo.net/admin/redirects/count.json`, {
+      .get(`https://apecspaceglobal.mysapo.net/admin/redirects/count.json`, {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",
@@ -1128,7 +1127,7 @@ const getRedirectTotal = async (req, res) => {
 const getVariants = async (req, res) => {
   try {
     await axios
-      .get("https://global-eccop.mysapo.net/admin/variants.json", {
+      .get("https://apecspaceglobal.mysapo.net/admin/variants.json", {
         auth: {
           username: "bba3469777fb4483a01c60fe868000e9",
           password: "c1bf8ecbbfe444e0aeaab6aef336aa3b",

@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const http = require("http");
 import CollaboratorRoute from "./API/Collaborator/CollaboratorRoute";
+import TeamRoutes from "./API/Team/TeamRoutes";
 import "./config/database";
 import WebhookRoute from "./WEBHOOK/WebhookRoute";
 
@@ -32,6 +33,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 WebhookRoute(app);
 CollaboratorRoute(app);
+TeamRoutes(app);
 app.listen(port, (err) => {
   if (err) {
     console.log(err);
