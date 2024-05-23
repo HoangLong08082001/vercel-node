@@ -6,6 +6,7 @@ class ServiceCollaborator {
   static login =
     "SELECT * FROM collaborator WHERE email_collaborator=? OR phone=?";
   static verify = "SELECT * FROM collaborator WHERE code_verify=?";
+  static updateStatusVerify="UPDATE collaborator SET status_verify=? WHERE code_verify=?"
   static presenter =
     "UPDATE collaborator SET presenter_phone=?, status_collaborator=? WHERE id_collaborator=? AND phone=?";
 }

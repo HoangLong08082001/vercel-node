@@ -32,8 +32,8 @@ const registerAccount = async (req, res) => {
               return res.status(200).json({ message: "fails to register" });
             } else {
               pool.query(
-                "INSERT INTO collaborator(name_collaborator, password_collaborator, email_collaborator, phone, status_collaborator, status_leader,	code_verify) VALUES(?,?,?,?,?,?,?)",
-                [name, hash, email, phone, 1, 1, randomNumberCodeVerfify()],
+                "INSERT INTO collaborator(name_collaborator, password_collaborator, email_collaborator, phone, status_collaborator, status_leader, status_verify, code_verify) VALUES(?,?,?,?,?,?,?,?)",
+                [name, hash, email, phone, 1, 1, 0, randomNumberCodeVerfify()],
                 (err, result) => {
                   if (err) {
                     console.log(err);
@@ -130,7 +130,19 @@ const codeVerify = (req, res) => {
         return res.status(200).json({ message: "fails" });
       }
       if (data) {
-        return res.status(200).json({ message: "success" });
+        pool.query(
+          ServiceCollaborator.updateStatusVerify,
+          [1, code_verify],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+              return res.status(200).json({ message: "fails" });
+            }
+            if (result) {
+              return res.status(200).json({ message: "success" });
+            }
+          }
+        );
       }
     });
   } catch (error) {

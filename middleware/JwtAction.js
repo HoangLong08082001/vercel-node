@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const createJwtWebsite = () => {};
 const createJwtApp = (payload) => {
-  let key = process.env.SECRET_KEY;
   let token = null;
   try {
     token = jwt.sign(payload, "apec-global-0827778666", {
