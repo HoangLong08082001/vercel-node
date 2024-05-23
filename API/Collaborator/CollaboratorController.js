@@ -70,8 +70,8 @@ const registerAccount = async (req, res) => {
 
 const loginAccount = (req, res) => {
   try {
-    let email = req.body.email;
-    let password = req.body.password;
+    let email = req.body.payload.email;
+    let password = req.body.payload.password;
     pool.query(ServiceCollaborator.login, [email, email], (err, data) => {
       if (err) {
         return res.status(200).json({ message: "fails" });

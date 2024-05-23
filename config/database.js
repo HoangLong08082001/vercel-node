@@ -1,13 +1,21 @@
-const { createPool } = require("mysql");
+const mysql = require("mysql");
 const dotenv = require("dotenv");
 dotenv.config();
-const pool = createPool({
+
+const pool = mysql.createConnection({
   port: 3306,
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "AffiliateDatabase",
+  host: "bcgaeemvgnpid5deovnl-mysql.services.clever-cloud.com",
+  user: "udohbxjnv0bsa4k5",
+  password: "Mdln88ghsZpmnAg9bZky",
+  database: "bcgaeemvgnpid5deovnl",
   connectionLimit: 10,
 });
 
+pool.connect((err) => {
+  if (err) {
+    console.error("Error connecting to MySQL:", err);
+    return;
+  }
+  console.log("Connected to MySQL!");
+});
 module.exports = pool;
