@@ -4,10 +4,10 @@ dotenv.config();
 
 const pool = mysql.createConnection({
   port: 3306,
-  host: "bcgaeemvgnpid5deovnl-mysql.services.clever-cloud.com",
-  user: "udohbxjnv0bsa4k5",
-  password: "Mdln88ghsZpmnAg9bZky",
-  database: "bcgaeemvgnpid5deovnl",
+  host: "b5pgj1fg42icdb7zpjdu-mysql.services.clever-cloud.com",
+  user: "uwv07v724txkjyit",
+  password: "zfAwRSRAakuCLTdeppt3",
+  database: "b5pgj1fg42icdb7zpjdu",
   connectionLimit: 10,
 });
 
