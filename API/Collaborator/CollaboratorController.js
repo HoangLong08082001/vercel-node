@@ -49,9 +49,7 @@ const registerAccount = async (req, res) => {
                         }
                         if (result) {
                           console.log(result);
-                          return res
-                            .status(200)
-                            .json({ message: "success to register" });
+                          return res.status(200).json({ message: "success" });
                         }
                       }
                     );
@@ -127,16 +125,16 @@ const codeVerify = (req, res) => {
     pool.query(ServiceCollaborator.verify, [code_verify], (err, data) => {
       if (err) {
         console.log(err);
-        return res.status(200).json({ message: "fails" });
+        return res.status(304).json();
       }
-      if (data) {
+      if (data.length > 0) {
         pool.query(
           ServiceCollaborator.updateStatusVerify,
           [1, code_verify],
           (err, result) => {
             if (err) {
               console.log(err);
-              return res.status(200).json({ message: "fails" });
+              return res.status(304).json();
             }
             if (result) {
               return res.status(200).json({ message: "success" });
