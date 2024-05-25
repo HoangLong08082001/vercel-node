@@ -15,7 +15,7 @@ const registerAccount = async (req, res) => {
     let email = req.body.email;
     let phone = req.body.phone;
     pool.query(
-      "SELECT * FROM collaborator WHERE email_collaborator=? AND phone=?",
+      "SELECT * FROM collaborator WHERE email_collaborator=? OR phone=?",
       [email, phone],
       (err, result) => {
         if (err) {
@@ -24,20 +24,30 @@ const registerAccount = async (req, res) => {
         }
         if (result.length > 0) {
           console.log(result);
-          return res.status(200).json({ message: "account already exits" });
+          return res.status(200).json({ message: "exits" });
         } else {
           bcrypt.hash(password, salt, (err, hash) => {
             if (err) {
               console.log(err);
-              return res.status(200).json({ message: "fails to register" });
+              return res.status(200).json({ message: "fails" });
             } else {
               pool.query(
-                "INSERT INTO collaborator(name_collaborator, password_collaborator, email_collaborator, phone, status_collaborator, status_leader, status_verify, code_verify) VALUES(?,?,?,?,?,?,?,?)",
-                [name, hash, email, phone, 1, 1, 0, randomNumberCodeVerfify()],
+                "INSERT INTO collaborator(name_collaborator, password_collaborator, email_collaborator, phone, status_collaborator, status_leader, status_verify, status_account, code_verify) VALUES(?,?,?,?,?,?,?,?,?)",
+                [
+                  name,
+                  hash,
+                  email,
+                  phone,
+                  1,
+                  1,
+                  0,
+                  1,
+                  randomNumberCodeVerfify(),
+                ],
                 (err, result) => {
                   if (err) {
                     console.log(err);
-                    return res.status(200).json({ message: "failt" });
+                    return res.status(200).json({ message: "fails" });
                   }
                   if (result) {
                     pool.query(
@@ -63,6 +73,7 @@ const registerAccount = async (req, res) => {
     );
   } catch (error) {
     console.error("Error fetching orders:", error);
+    return res.status(500).json({ message: "fails" });
   }
 };
 
@@ -72,7 +83,7 @@ const loginAccount = (req, res) => {
     let password = req.body.payload.password;
     pool.query(ServiceCollaborator.login, [email, email], (err, data) => {
       if (err) {
-        return res.status(200).json({ message: "fails" });
+        return res.status(200).json({ message: "not exists" });
       }
       if (data.length > 0) {
         console.log(data[0]);
@@ -91,6 +102,7 @@ const loginAccount = (req, res) => {
                 (err, data) => {
                   if (err) {
                     console.log(err);
+                    return res.status(200).json({ message: "fails" });
                   }
                   if (data) {
                     let payload = {
@@ -111,6 +123,9 @@ const loginAccount = (req, res) => {
             }
           }
         );
+      }
+      if (!data) {
+        return res.status(200).json({ message: "wrong" });
       }
     });
   } catch (error) {
