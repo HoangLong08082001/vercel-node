@@ -3,6 +3,7 @@ import pool from "../../config/database";
 import ServiceCollaborator from "./CollaboratorModal";
 import bcrypt, { hash } from "bcrypt";
 import { createJwtApp } from "../../middleware/JwtAction";
+import ServicePayment from "../Payment/PaymentModal";
 const salt = 10;
 const randomNumberCodeVerfify = () => {
   return Math.floor(100000 + Math.random() * 900000);
@@ -14,63 +15,49 @@ const registerAccount = async (req, res) => {
     let password = req.body.password;
     let email = req.body.email;
     let phone = req.body.phone;
-    pool.query(
-      "SELECT * FROM collaborator WHERE email_collaborator=? OR phone=?",
-      [email, phone],
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          return res.status(200).json({ message: "fails" });
-        }
-        if (result.length > 0) {
-          console.log(result);
-          return res.status(200).json({ message: "exits" });
-        } else {
-          bcrypt.hash(password, salt, (err, hash) => {
-            if (err) {
-              console.log(err);
-              return res.status(200).json({ message: "fails" });
-            } else {
-              pool.query(
-                "INSERT INTO collaborator(name_collaborator, password_collaborator, email_collaborator, phone, status_collaborator, status_leader, status_verify, status_account, code_verify) VALUES(?,?,?,?,?,?,?,?,?)",
-                [
-                  name,
-                  hash,
-                  email,
-                  phone,
-                  1,
-                  1,
-                  0,
-                  1,
-                  randomNumberCodeVerfify(),
-                ],
-                (err, result) => {
-                  if (err) {
-                    console.log(err);
-                    return res.status(200).json({ message: "fails" });
-                  }
-                  if (result) {
-                    pool.query(
-                      "INSERT INTO payment (total_recived, total_withdrawn, id_collaborator) VALUES (?,?,?)",
-                      [0, 0, result.insertId],
-                      (err, result) => {
-                        if (err) {
-                          console.log(err);
-                        }
-                        if (result) {
-                          console.log(result);
-                          return res.status(200).json({ message: "success" });
-                        }
-                      }
-                    );
-                  }
-                }
-              );
-            }
-          });
-        }
+    pool.query(ServiceCollaborator.check, [email, phone], (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(200).json({ message: "fails" });
       }
-    );
+      if (result.length > 0) {
+        console.log(result);
+        return res.status(200).json({ message: "exits" });
+      } else {
+        bcrypt.hash(password, salt, (err, hash) => {
+          if (err) {
+            console.log(err);
+            return res.status(200).json({ message: "fails" });
+          } else {
+            pool.query(
+              ServiceCollaborator.register,
+              [name, hash, email, phone, 1, 1, 0, 1, randomNumberCodeVerfify()],
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                  return res.status(200).json({ message: "fails" });
+                }
+                if (result) {
+                  pool.query(
+                    ServicePayment.addpayment,
+                    [0, 0, result.insertId],
+                    (err, result) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                      if (result) {
+                        console.log(result);
+                        return res.status(200).json({ message: "success" });
+                      }
+                    }
+                  );
+                }
+              }
+            );
+          }
+        });
+      }
+    });
   } catch (error) {
     console.error("Error fetching orders:", error);
     return res.status(500).json({ message: "fails" });
