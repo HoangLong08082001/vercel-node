@@ -8,5 +8,6 @@ export default function CollaboratorRoute(app) {
   router.post("/verify", CollaboratorController.codeVerify);
   router.post("/presenter-phone", CollaboratorController.presenterPhone);
   router.get("/account", CollaboratorController.getAccount);
+  
   return app.use("/collaborator", router);
 }
