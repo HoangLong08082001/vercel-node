@@ -6,7 +6,9 @@ const http = require("http");
 import CollaboratorRoute from "./API/Collaborator/CollaboratorRoute";
 import TeamRoutes from "./API/Team/TeamRoutes";
 import "./config/database";
+import ViewRoutes from "./routes-views/routers";
 import WebhookRoute from "./WEBHOOK/WebhookRoute";
+const path = require("path");
 
 const socketIO = require("socket.io");
 const io = socketIO();
@@ -29,11 +31,15 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"],
 };
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "./views"));
+app.use(express.static(path.join(__dirname, "./public")));
 
 app.use(cors(corsOptions));
 WebhookRoute(app);
 CollaboratorRoute(app);
 TeamRoutes(app);
+ViewRoutes(app);
 app.listen(port, (err) => {
   if (err) {
     console.log(err);

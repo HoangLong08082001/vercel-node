@@ -9,7 +9,11 @@ class ServiceCollaborator {
   static updateStatusVerify =
     "UPDATE collaborator SET status_verify=? WHERE code_verify=?";
   static presenter =
-    "UPDATE collaborator SET presenter_phone=?, status_collaborator=? WHERE id_collaborator=? AND phone=?";
+    "UPDATE collaborator SET presenter_phone=?, status_collaborator=? WHERE email_collaborator=? ";
+  static updateCollaborator =
+    "UPDATE collaborator SET name_collaborator=?, email_collaborator=? WHERE email_collaborator=?";
+  static checkEmail = "SELECT * FROM collaborator WHERE email_collaborator=?";
+
 }
 
 module.exports = ServiceCollaborator;

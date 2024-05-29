@@ -13,5 +13,15 @@ const createJwtApp = (payload) => {
   }
   return token;
 };
+const createJwtReNew = ()=>{
+  let token = null;
+  try {
+    token = jwt.sign(payload,"1332436432334",{
+      expiresIn:11,
+    });
+  } catch (error) {
+    
+  }
+}
 
 module.exports = { createJwtApp, createJwtWebsite };

@@ -8,6 +8,7 @@ export default function CollaboratorRoute(app) {
   router.post("/verify", CollaboratorController.codeVerify);
   router.post("/presenter-phone", CollaboratorController.presenterPhone);
   router.get("/account", CollaboratorController.getAccount);
-  
+  router.put("/update-collaborator", CollaboratorController.updateInformation);
+  router.post('/renew-password',CollaboratorController.reNewpassword)
   return app.use("/collaborator", router);
 }

@@ -1,9 +1,10 @@
-import axios from "axios";
-import pool from "../../config/database";
+const axios = require("axios");
+const pool = require("../../config/database");
 import ServiceCollaborator from "./CollaboratorModal";
-import bcrypt, { hash } from "bcrypt";
+const bcrypt = require("bcrypt");
 import { createJwtApp } from "../../middleware/JwtAction";
 import ServicePayment from "../Payment/PaymentModal";
+const nodemailer = require("nodemailer");
 const salt = 10;
 const randomNumberCodeVerfify = () => {
   return Math.floor(100000 + Math.random() * 900000);
@@ -122,6 +123,34 @@ const loginAccount = (req, res) => {
                       if (data && token) {
                         res.cookie("jwt", token, { httpOnly: true });
                       }
+                      if (data[0].status_verify === 0) {
+                        const transport = nodemailer.createTransport({
+                          host: "smtp.gmail.com",
+                          port: 587,
+                          service: "gmail",
+                          secure: false,
+                          auth: {
+                            user: "longhoang882001@gmail.com",
+                            pass: "dyygjdykverudrtb",
+                          },
+                        });
+
+                        // Thiết lập email options
+                        const mailOptions = {
+                          from: "longhoang882001@gmail.com", // Địa chỉ email của người gửi
+                          to: `${data[0].email_collaborator}`, // Địa chỉ email của người nhận
+                          subject: "Ecoop send code verify", // Tiêu đề email
+                          text: `Verify code from Ecoop ${data[0].code_verify}`, // Nội dung email
+                        };
+                        transport.sendMail(mailOptions, (error, info) => {
+                          if (error) {
+                            return console.log(error);
+                          }
+                          console.log(
+                            "Verify code from Ecoop: " + info.response
+                          );
+                        });
+                      }
                       return res.status(200).json({
                         message: "success",
                         data,
@@ -188,22 +217,19 @@ const codeVerify = (req, res) => {
 };
 
 const presenterPhone = (req, res) => {
-  let id_collaborator = req.body.id;
+  let email = req.body.email;
   let phone = req.body.phone;
-  let presenter_phone = req.body.presenter_phone;
-  pool.query(
-    ServiceCollaborator.presenter,
-    [presenter_phone, 2, id_collaborator, phone],
-    (err, data) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: "fails" });
-      }
-      if (data) {
-        return res.status(200).json({ message: "success" });
-      }
+  console.log(email + phone);
+  pool.query(ServiceCollaborator.presenter, [phone, 2, email], (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "fails" });
     }
-  );
+    if (data) {
+      console.log(data);
+      return res.status(200).json({ message: "success" });
+    }
+  });
 };
 
 const getAccount = (req, res) => {
@@ -226,6 +252,77 @@ const signOutAccount = (req, res) => {
   }
 };
 
+const updateInformation = (req, res) => {
+  let name = req.body.name;
+  let email = req.body.email;
+  try {
+    pool.query(
+      ServiceCollaborator.updateCollaborator,
+      [name, email, email],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ message: "fails" });
+        }
+        if (result) {
+          console.log(result);
+          return res.status(200).json({ message: "success", data: result });
+        }
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "fails" });
+  }
+};
+
+const reNewpassword = (req, res) => {
+  let email = req.body.email;
+  try {
+    pool.query(ServiceCollaborator.checkEmail, [email], (err, data) => {
+      if (err) {
+        return res.status(500).json({ message: "fails" });
+      }
+      if (data.length > 0) {
+        console.log(data[0]);
+        const transport = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 587,
+          service: "gmail",
+          secure: false,
+          auth: {
+            user: "longhoang882001@gmail.com",
+            pass: "dyygjdykverudrtb",
+          },
+        });
+
+        // Thiết lập email options
+        const mailOptions = {
+          from: "ECOOPMART.VN", // Địa chỉ email của người gửi
+          to: `${email}`, // Địa chỉ email của người nhận
+          subject: "Ecoop send message to renew password", // Tiêu đề email
+          text: `To reset your password, you need to log in to the page https://eec3-116-109-23-167.ngrok-free.app/views/repassword-page. Please enter your registered email and enter the new password to be reset.`, // Nội dung email
+        };
+        transport.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return console.log(error);
+          }
+          if (info) {
+            return res.status(200).json({ message: "success" });
+          }
+        });
+      } else {
+        return res
+          .status(400)
+          .json({ message: "Không tìm thấy email đã đăng ký" });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "fails" });
+  }
+};
+
 module.exports = {
   registerAccount,
   loginAccount,
@@ -233,4 +330,6 @@ module.exports = {
   presenterPhone,
   getAccount,
   signOutAccount,
+  updateInformation,
+  reNewpassword,
 };
