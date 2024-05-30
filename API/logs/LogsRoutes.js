@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-import CollaboratorController from "./CollaboratorController";
-export default function CollaboratorRoute(app) {
+export default function LogsRoutes(app) {
+  //Collaborator
   router.post("/register", CollaboratorController.registerAccount);
   router.post("/login", CollaboratorController.loginAccount);
   router.post("/logout", CollaboratorController.signOutAccount);
@@ -10,6 +10,5 @@ export default function CollaboratorRoute(app) {
   router.get("/account", CollaboratorController.getAccount);
   router.put("/update-collaborator", CollaboratorController.updateInformation);
   router.post("/renew-password", CollaboratorController.reNewpassword);
-  router.post("/resend", CollaboratorController.resendCodeVerify);
-  return app.use("/collaborator", router);
+  return app.use("/", router);
 }

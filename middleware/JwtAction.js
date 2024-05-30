@@ -13,15 +13,13 @@ const createJwtApp = (payload) => {
   }
   return token;
 };
-const createJwtReNew = ()=>{
+const createJwtReNew = () => {
   let token = null;
   try {
-    token = jwt.sign(payload,"1332436432334",{
-      expiresIn:11,
+    token = jwt.sign(payload, "1332436432334", {
+      expiresIn: 86400,
     });
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
 
 module.exports = { createJwtApp, createJwtWebsite };
