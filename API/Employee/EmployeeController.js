@@ -41,7 +41,7 @@ const createEmployee = (req, res) => {
 const loginEmployee = (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
-  pool.query(ServiceEmployee.checkLogin[(email, email)], (err, data) => {
+  pool.query(ServiceEmployee.checkLogin[(username, username)], (err, data) => {
     if (err) {
       return res.status(500).json({ message: "fails" });
     }
@@ -50,10 +50,22 @@ const loginEmployee = (req, res) => {
         if (err) {
           return res.status(500).json({ message: "fails" });
         }
-        if(result)
-          {
-            
-          }
+        if (result) {
+          pool.query(
+            ServiceEmployee.checkPermission,
+            [username],
+            (err, response) => {
+              if (err) {
+                return res.status(500).json({ message: "fails" });
+              }
+              if (response) {
+                let payload = {
+                  data: response,
+                };
+              }
+            }
+          );
+        }
       });
     } else {
       return res
