@@ -1,4 +1,5 @@
 const pool = require("../../config/database");
+import { createJwtReNew, createJwtWebsite } from "../../middleware/JwtAction";
 const { ServiceEmployee } = require("./EmployeeModal");
 const bcrypt = require("bcrypt");
 const salt = 10;
@@ -46,6 +47,7 @@ const loginEmployee = (req, res) => {
       return res.status(500).json({ message: "fails" });
     }
     if (data.length > 0) {
+      console.log(data[0]);
       bcrypt.compare(password.toString(), data[0].password, (err, result) => {
         if (err) {
           return res.status(500).json({ message: "fails" });
@@ -62,6 +64,15 @@ const loginEmployee = (req, res) => {
                 let payload = {
                   data: response,
                 };
+                let token = createJwtWebsite(payload);
+                if (response && token) {
+                  res.cookie("jwt", token, { httpOnly: true });
+                }
+                return res.status(200).json({
+                  message: "success",
+                  response,
+                  access_token: token,
+                });
               }
             }
           );
