@@ -62,10 +62,7 @@ ViewRoutes(app);
 EmployeeRoutes(app);
 DepartmentRoutes(app);
 CampaignRoutes(app);
-app.use("/", (req, res) => {
-  return res.send("Hello");
-});
-app.listen(port, "0.0.0.0", (err) => {
+app.listen(port, (err) => {
   if (err) {
     throw err;
   } else {
