@@ -8,10 +8,15 @@ class ServiceCollaborator {
   static verify = "SELECT * FROM collaborator WHERE code_verify=?";
   static updateStatusVerify =
     "UPDATE collaborator SET status_verify=? WHERE code_verify=?";
-  static presenter =
-    "UPDATE collaborator SET presenter_phone=?, status_collaborator=? WHERE email_collaborator=? ";
-  static updateCollaborator =
+  static addPresenter = "INSERT INTO collaborator (presenter_phone) VALUES (?)";
+  static updateStatus =
+    "UPDATE collaborator SET status_collaborator=? WHERE email_collaborator=?";
+  static updatePresenter =
+    "UPDATE collaborator SET presenter_phone=?, status_collaborator=? WHERE email_collaborator=? AND presenter_phone is NULL";
+  static updateCollaboratorNoPhone =
     "UPDATE collaborator SET name_collaborator=?, email_collaborator=? WHERE email_collaborator=?";
+  static updateCollaborator =
+    "UPDATE collaborator SET name_collaborator=?, email_collaborator=?, presenter_phone=?, status_collaborator=? WHERE email_collaborator=? AND presenter_phone is NULL";
   static checkEmail = "SELECT * FROM collaborator WHERE email_collaborator=?";
   static resendCode =
     "SELECT code_verify from collaborator WHERE email_collaborator=?";

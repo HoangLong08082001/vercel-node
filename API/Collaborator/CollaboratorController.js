@@ -211,15 +211,19 @@ const presenterPhone = (req, res) => {
   let email = req.body.email;
   let phone = req.body.phone;
   console.log(email + phone);
-  pool.query(ServiceCollaborator.presenter, [phone, 2, email], (err, data) => {
-    if (err) {
-      throw err;
+  pool.query(
+    ServiceCollaborator.updatePresenter,
+    [phone, 2, email],
+    (err, data) => {
+      if (err) {
+        throw err;
+      }
+      if (data) {
+        console.log(data);
+        return res.status(200).json({ message: "success" });
+      }
     }
-    if (data) {
-      console.log(data);
-      return res.status(200).json({ message: "success" });
-    }
-  });
+  );
 };
 
 const getAccount = (req, res) => {
@@ -245,24 +249,128 @@ const signOutAccount = (req, res) => {
 const updateInformation = (req, res) => {
   let name = req.body.name;
   let email = req.body.email;
-  try {
-    pool.query(
-      ServiceCollaborator.updateCollaborator,
-      [name, email, email],
-      (err, result) => {
+  let emailData = req.body.emailData;
+  let presenterPhone = req.body.referral;
+  console.log(name + " " + email + " " + emailData + presenterPhone);
+
+  if (
+    (presenterPhone === "" || presenterPhone === undefined) &&
+    emailData !== email
+  ) {
+    try {
+      pool.query(ServiceCollaborator.checkEmail, [email], (err, data) => {
         if (err) {
-          console.log(err);
-          return res.status(500).json({ message: "fails" });
+          throw err;
         }
-        if (result) {
-          console.log(result);
-          return res.status(200).json({ message: "success", data: result });
+        if (data.length > 0) {
+          return res
+            .status(400)
+            .json({ message: "Email đã tồn tại! vui lòng nhập email khác" });
+        } else {
+          pool.query(
+            ServiceCollaborator.updateCollaboratorNoPhone,
+            [name, email, emailData],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+                return res.status(500).json({ message: "fails" });
+              }
+              if (result) {
+                console.log(result);
+                return res
+                  .status(200)
+                  .json({ message: "success", data: result });
+              }
+            }
+          );
         }
-      }
-    );
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "fails" });
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "fails" });
+    }
+  } else if (
+    (presenterPhone === "" || presenterPhone === undefined) &&
+    emailData === email
+  ) {
+    try {
+      pool.query(
+        ServiceCollaborator.updateCollaboratorNoPhone,
+        [name, email, emailData],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({ message: "fails" });
+          }
+          if (result) {
+            console.log(result);
+            return res.status(200).json({ message: "success", data: result });
+          }
+        }
+      );
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "fails" });
+    }
+  } else if (
+    (presenterPhone !== "" || presenterPhone !== undefined) &&
+    email === emailData
+  ) {
+    try {
+      pool.query(
+        ServiceCollaborator.updateCollaborator,
+        [name, email, presenterPhone, 2, email],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({ message: "fails" });
+          }
+          if (result) {
+            console.log(result);
+            return res.status(200).json({ message: "success", data: result });
+          }
+        }
+      );
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "fails" });
+    }
+  } else if (
+    (presenterPhone !== "" || presenterPhone !== undefined) &&
+    emailData !== email
+  ) {
+    try {
+      pool.query(ServiceCollaborator.checkEmail, [email], (err, data) => {
+        if (err) {
+          throw err;
+        }
+        if (data.length > 0) {
+          return res
+            .status(400)
+            .json({ message: "Email đã tồn tại! vui lòng nhập email khác" });
+        } else {
+          pool.query(
+            ServiceCollaborator.updateCollaborator,
+            [name, email, presenterPhone, 2, emailData],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+                return res.status(500).json({ message: "fails" });
+              }
+              if (result) {
+                console.log(result);
+                return res
+                  .status(200)
+                  .json({ message: "success", data: result });
+              }
+            }
+          );
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "fails" });
+    }
   }
 };
 
