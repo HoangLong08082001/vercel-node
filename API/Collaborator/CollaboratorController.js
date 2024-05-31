@@ -291,7 +291,7 @@ const reNewpassword = (req, res) => {
           from: "ECOOPMART.VN", // Địa chỉ email của người gửi
           to: `${email}`, // Địa chỉ email của người nhận
           subject: "Ecoop send message to renew password", // Tiêu đề email
-          text: `To reset your password, you need to log in to the page https://eec3-116-109-23-167.ngrok-free.app/views/repassword-page. Please enter your registered email and enter the new password to be reset.`, // Nội dung email
+          text: `To reset your password, you need to log in to the page https://node-vercel-sigma.vercel.app/views/repassword-page. Please enter your registered email and enter the new password to be reset.`, // Nội dung email
         };
         transport.sendMail(mailOptions, (error, info) => {
           if (error) {
