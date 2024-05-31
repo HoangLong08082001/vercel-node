@@ -67,7 +67,7 @@ const getOrders = async (req, res) => {
         `;
           pool.query(query, [mapValues], (err, result) => {
             if (err) {
-              console.log(err);
+              throw err;
             }
             if (result) {
               return res.status(200).json(response.data);

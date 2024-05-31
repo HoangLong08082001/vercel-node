@@ -8,7 +8,7 @@ const createJwtWebsite = (payload) => {
       expiresIn: 2629800,
     });
   } catch (error) {
-    console.log(error);
+    throw error;
   }
   return token;
 };
@@ -19,7 +19,7 @@ const createJwtApp = (payload) => {
       expiresIn: 86400,
     });
   } catch (error) {
-    console.log(error);
+    throw error;
   }
   return token;
 };
@@ -29,7 +29,10 @@ const createJwtReNew = () => {
     token = jwt.sign(payload, "1332436432334", {
       expiresIn: 86400,
     });
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
+  return token;
 };
 
 module.exports = { createJwtApp, createJwtWebsite, createJwtReNew };

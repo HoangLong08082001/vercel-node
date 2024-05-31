@@ -22,8 +22,7 @@ const registerAccount = async (req, res) => {
     ) {
       pool.query(ServiceCollaborator.check, [email, phone], (err, result) => {
         if (err) {
-          console.log(err);
-          return res.status(500).json({ message: "fails" });
+          throw err;
         }
         if (result.length > 0) {
           console.log(result);
@@ -33,8 +32,7 @@ const registerAccount = async (req, res) => {
         } else {
           bcrypt.hash(password, salt, (err, hash) => {
             if (err) {
-              console.log(err);
-              return res.status(500).json({ message: "fails" });
+              throw er;
             }
             if (hash) {
               pool.query(
@@ -52,8 +50,7 @@ const registerAccount = async (req, res) => {
                 ],
                 (err, result) => {
                   if (err) {
-                    console.log(err);
-                    return res.status(500).json({ message: "fails" });
+                    throw err;
                   }
                   if (result) {
                     pool.query(
@@ -61,8 +58,7 @@ const registerAccount = async (req, res) => {
                       [0, 0, result.insertId],
                       (err, result) => {
                         if (err) {
-                          console.log(err);
-                          return res.status(500).json({ message: "fails" });
+                          throw err;
                         }
                         if (result) {
                           console.log(result);
@@ -94,7 +90,7 @@ const loginAccount = (req, res) => {
     ) {
       pool.query(ServiceCollaborator.login, [email, email], (err, data) => {
         if (err) {
-          return res.status(500).json({ message: "fails" });
+          throw err;
         }
         if (data.length > 0) {
           console.log(data[0]);
@@ -103,8 +99,7 @@ const loginAccount = (req, res) => {
             data[0].password_collaborator,
             (err, response) => {
               if (err) {
-                console.error(err);
-                return res.status(500).json({ message: "fails" });
+                throw err;
               }
               if (response) {
                 pool.query(
@@ -112,8 +107,7 @@ const loginAccount = (req, res) => {
                   [email, email],
                   (err, data) => {
                     if (err) {
-                      console.log(err);
-                      return res.status(500).json({ message: "fails" });
+                      throw err;
                     }
                     if (data) {
                       let payload = {
@@ -144,7 +138,7 @@ const loginAccount = (req, res) => {
                         };
                         transport.sendMail(mailOptions, (error, info) => {
                           if (error) {
-                            return console.log(error);
+                            throw error;
                           }
                           console.log(
                             "Verify code from Ecoop: " + info.response
@@ -189,8 +183,7 @@ const codeVerify = (req, res) => {
     let code_verify = req.body.code;
     pool.query(ServiceCollaborator.verify, [code_verify], (err, data) => {
       if (err) {
-        console.log(err);
-        return res.status(500).json({ message: "fails" });
+        throw err;
       }
       if (data.length > 0) {
         pool.query(
@@ -198,8 +191,7 @@ const codeVerify = (req, res) => {
           [1, code_verify],
           (err, result) => {
             if (err) {
-              console.log(err);
-              return res.status(500).json({ message: "fails" });
+              throw err;
             }
             if (result) {
               return res.status(200).json({ message: "success" });
@@ -222,8 +214,7 @@ const presenterPhone = (req, res) => {
   console.log(email + phone);
   pool.query(ServiceCollaborator.presenter, [phone, 2, email], (err, data) => {
     if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "fails" });
+      throw err;
     }
     if (data) {
       console.log(data);
@@ -281,7 +272,7 @@ const reNewpassword = (req, res) => {
   try {
     pool.query(ServiceCollaborator.checkEmail, [email], (err, data) => {
       if (err) {
-        return res.status(500).json({ message: "fails" });
+        throw err;
       }
       if (data.length > 0) {
         console.log(data[0]);
@@ -305,7 +296,7 @@ const reNewpassword = (req, res) => {
         };
         transport.sendMail(mailOptions, (error, info) => {
           if (error) {
-            return console.log(error);
+        throw error;
           }
           if (info) {
             console.log("Verify code from Ecoop: " + info.response);
@@ -327,7 +318,7 @@ const resendCodeVerify = (req, res) => {
   let email = req.body.email;
   pool.query(ServiceCollaborator.resendCode, [email], (err, result) => {
     if (err) {
-      return res.status(500).json({ message: "fails" });
+        throw err;
     }
     if (result) {
       const transport = nodemailer.createTransport({
@@ -350,7 +341,7 @@ const resendCodeVerify = (req, res) => {
       };
       transport.sendMail(mailOptions, (error, info) => {
         if (error) {
-          return console.log(error);
+        throw error;
         }
         if (info) {
           return res.status(200).json({ message: "success" });

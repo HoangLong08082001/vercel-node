@@ -12,14 +12,14 @@ const createEmployee = (req, res) => {
   let id_department = req.body.id_department;
   pool.query(ServiceEmployee.checkEmail, [username], (err, result) => {
     if (err) {
-      return res.status(500).json({ message: "fails" });
+      throw er;
     }
     if (result.length > 0) {
       return res.status(400).json({ message: "Email đã tồn tại" });
     } else {
       bcrypt.hash(password, salt, (err, hash) => {
         if (err) {
-          return res.status(500).json({ message: "fails" });
+          throw er;
         }
         if (hash) {
           pool.query(
@@ -27,7 +27,7 @@ const createEmployee = (req, res) => {
             [id_department, username, hash, phone, 1],
             (err, data) => {
               if (err) {
-                return res.status(500).json({ message: "fails" });
+                throw er;
               }
               if (data) {
                 return res.status(200).json({ message: "success" });
@@ -44,13 +44,13 @@ const loginEmployee = (req, res) => {
   let password = req.body.password;
   pool.query(ServiceEmployee.checkLogin[(username, username)], (err, data) => {
     if (err) {
-      return res.status(500).json({ message: "fails" });
+      throw er;
     }
     if (data.length > 0) {
       console.log(data[0]);
       bcrypt.compare(password.toString(), data[0].password, (err, result) => {
         if (err) {
-          return res.status(500).json({ message: "fails" });
+          throw er;
         }
         if (result) {
           pool.query(
@@ -58,7 +58,7 @@ const loginEmployee = (req, res) => {
             [username],
             (err, response) => {
               if (err) {
-                return res.status(500).json({ message: "fails" });
+                throw er;
               }
               if (response) {
                 let payload = {

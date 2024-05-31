@@ -5,7 +5,7 @@ const createDepartment = (req, res) => {
   let name = req.body.name;
   pool.query(ServiceDepartment.checkExists, [name], (err, result) => {
     if (err) {
-      return res.status(500).json({ message: "fails" });
+        throw err;
     }
     if (result.length > 0) {
       return res
@@ -14,7 +14,7 @@ const createDepartment = (req, res) => {
     } else {
       pool.query(ServiceDepartment.create, [name], (err, data) => {
         if (err) {
-          return res.status(500).json({ message: "fails" });
+        throw err;
         }
         if (data) {
           return res.status(200).json({ message: "success" });

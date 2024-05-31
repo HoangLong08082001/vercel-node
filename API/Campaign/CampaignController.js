@@ -23,7 +23,7 @@ const createCampaign = (req, res) => {
     ],
     (err, data) => {
       if (err) {
-        return res.status(500).json({ message: "fails" });
+        throw err;
       }
       if (data) {
         return res.status(200).json({ message: "success" });
@@ -31,6 +31,8 @@ const createCampaign = (req, res) => {
     }
   );
 };
-const deleteCampaign = (req, res) => {};
+const deleteCampaign = (req, res) => {
+  return res.send("Delete")
+};
 
 module.exports = { createCampaign, deleteCampaign };

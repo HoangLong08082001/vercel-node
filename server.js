@@ -16,7 +16,6 @@ import EmployeeRoutes from "./API/Employee/EmployeeRoutes";
 import DepartmentRoutes from "./API/Department/DepartmentRoutes";
 import CampaignRoutes from "./API/Campaign/CampaignRoutes";
 const path = require("path");
-
 const socketIO = require("socket.io");
 const io = socketIO();
 dotenv.config();
@@ -67,7 +66,7 @@ CampaignRoutes(app);
 
 app.listen(port, (err) => {
   if (err) {
-    console.log(err);
+    throw err;
   } else {
     console.log("server is running on the port " + port);
   }
