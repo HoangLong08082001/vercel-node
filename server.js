@@ -55,7 +55,7 @@ app.use((req, res, next) => {
   logger.info(`Request: ${req.method} ${req.url} from IP: ${ip}, OS: ${os}`);
   next();
 });
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
   return res.send("helo");
 });
 WebhookRoute(app);
