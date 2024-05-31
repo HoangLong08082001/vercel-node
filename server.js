@@ -14,6 +14,7 @@ import WebhookRoute from "./WEBHOOK/WebhookRoute";
 import logger from "./middleware/logger";
 import EmployeeRoutes from "./API/Employee/EmployeeRoutes";
 import DepartmentRoutes from "./API/Department/DepartmentRoutes";
+import CampaignRoutes from "./API/Campaign/CampaignRoutes";
 const path = require("path");
 
 const socketIO = require("socket.io");
@@ -62,6 +63,7 @@ TeamRoutes(app);
 ViewRoutes(app);
 EmployeeRoutes(app);
 DepartmentRoutes(app);
+CampaignRoutes(app);
 
 app.listen(port, (err) => {
   if (err) {
