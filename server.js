@@ -21,7 +21,7 @@ const io = socketIO();
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
-const port = process.env.PORT || 4000;
+const port = process.env.PORT_SERVER || 4000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {

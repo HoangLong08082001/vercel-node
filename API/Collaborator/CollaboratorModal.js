@@ -13,7 +13,8 @@ class ServiceCollaborator {
   static updateCollaborator =
     "UPDATE collaborator SET name_collaborator=?, email_collaborator=? WHERE email_collaborator=?";
   static checkEmail = "SELECT * FROM collaborator WHERE email_collaborator=?";
-  static resendCode = "SELECT code_verify from collaborator WHERE email_collaborator=?"
+  static resendCode =
+    "SELECT code_verify from collaborator WHERE email_collaborator=?";
 }
 
-module.exports = ServiceCollaborator;
+module.exports = { ServiceCollaborator };

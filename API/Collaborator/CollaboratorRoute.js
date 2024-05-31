@@ -1,5 +1,15 @@
 import express from "express";
-import { codeVerify, getAccount, loginAccount, presenterPhone, reNewpassword, registerAccount, resendCodeVerify, signOutAccount, updateInformation } from "./CollaboratorController";
+import {
+  codeVerify,
+  getAccount,
+  loginAccount,
+  presenterPhone,
+  reNewpassword,
+  registerAccount,
+  resendCodeVerify,
+  signOutAccount,
+  updateInformation,
+} from "./CollaboratorController";
 const router = express.Router();
 export default function CollaboratorRoute(app) {
   router.post("/register", registerAccount);
