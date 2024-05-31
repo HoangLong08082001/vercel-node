@@ -9,7 +9,7 @@ const createTeam = (req, res) => {
       [id_collaborator],
       (err, result) => {
         if (err) {
-          console.log(err);
+          throw err;
         } else if (result.length > 0) {
           return res.status(200).json({ message: "exists" });
         } else {
@@ -76,8 +76,7 @@ const getAllTeam = (req, res) => {
   try {
     pool.query(TeamModal.allTeam, [], (err, result) => {
       if (err) {
-        console.error(err);
-        return res.status(200).json({ message: "fails" });
+        throw err;
       }
       if (result) {
         return res.status(200).json(result);

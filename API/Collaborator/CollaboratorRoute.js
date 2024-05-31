@@ -1,15 +1,15 @@
 import express from "express";
-import CollaboratorController from "./CollaboratorController.js";
+import { codeVerify, getAccount, loginAccount, presenterPhone, reNewpassword, registerAccount, resendCodeVerify, signOutAccount, updateInformation } from "./CollaboratorController";
 const router = express.Router();
 export default function CollaboratorRoute(app) {
-  router.post("/register", CollaboratorController.registerAccount);
-  router.post("/login", CollaboratorController.loginAccount);
-  router.post("/logout", CollaboratorController.signOutAccount);
-  router.post("/verify", CollaboratorController.codeVerify);
-  router.post("/presenter-phone", CollaboratorController.presenterPhone);
-  router.get("/account", CollaboratorController.getAccount);
-  router.put("/update-collaborator", CollaboratorController.updateInformation);
-  router.post("/renew-password", CollaboratorController.reNewpassword);
-  router.post("/resend", CollaboratorController.resendCodeVerify);
+  router.post("/register", registerAccount);
+  router.post("/login", loginAccount);
+  router.post("/logout", signOutAccount);
+  router.post("/verify", codeVerify);
+  router.post("/presenter-phone", presenterPhone);
+  router.get("/account", getAccount);
+  router.put("/update-collaborator", updateInformation);
+  router.post("/renew-password", reNewpassword);
+  router.post("/resend", resendCodeVerify);
   return app.use("/collaborator", router);
 }

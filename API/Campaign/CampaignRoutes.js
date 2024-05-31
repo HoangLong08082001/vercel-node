@@ -1,9 +1,10 @@
+import { createCampaign, deleteCampaign } from "./CampaignController";
+
 const express = require("express");
 const router = express.Router();
-const CampaignController = require ("./CampaignController.js");
 
 export default function CampaignRoutes(app) {
-  router.post("/create", CampaignController.createCampaign);
-  router.delete("/delete", CampaignController.deleteCampaign);
+  router.post("/create", createCampaign);
+  router.delete("/delete", deleteCampaign);
   return app.use("/campaign", router);
 }
