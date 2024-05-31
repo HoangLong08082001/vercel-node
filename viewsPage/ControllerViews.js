@@ -34,4 +34,7 @@ const renewPassword = (req, res) => {
     return res.status(500).json({ message: "fails" });
   }
 };
-module.exports = { repasswordPage, renewPassword };
+const getSuccessPage = (req, res) => {
+  return res.render("success");
+};
+module.exports = { repasswordPage, renewPassword, getSuccessPage };
