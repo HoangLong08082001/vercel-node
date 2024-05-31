@@ -1,9 +1,8 @@
 const axios = require("axios");
-const pool = require("../../config/database");
-import ServiceCollaborator from "./CollaboratorModal";
+const pool = require("../../config/database.js");
 const bcrypt = require("bcrypt");
-import { createJwtApp } from "../../middleware/JwtAction";
-import ServicePayment from "../Payment/PaymentModal";
+const { ServiceCollaborator } = require("./CollaboratorModal.js");
+const { createJwtApp } = require("../../middleware/JwtAction.js");
 const nodemailer = require("nodemailer");
 const salt = 10;
 const randomNumberCodeVerfify = () => {
@@ -296,7 +295,7 @@ const reNewpassword = (req, res) => {
         };
         transport.sendMail(mailOptions, (error, info) => {
           if (error) {
-        throw error;
+            throw error;
           }
           if (info) {
             console.log("Verify code from Ecoop: " + info.response);
@@ -318,7 +317,7 @@ const resendCodeVerify = (req, res) => {
   let email = req.body.email;
   pool.query(ServiceCollaborator.resendCode, [email], (err, result) => {
     if (err) {
-        throw err;
+      throw err;
     }
     if (result) {
       const transport = nodemailer.createTransport({
@@ -341,7 +340,7 @@ const resendCodeVerify = (req, res) => {
       };
       transport.sendMail(mailOptions, (error, info) => {
         if (error) {
-        throw error;
+          throw error;
         }
         if (info) {
           return res.status(200).json({ message: "success" });

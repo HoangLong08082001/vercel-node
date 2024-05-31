@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-import CampaignController from "./CampaignController";
+const CampaignController = require ("./CampaignController.js");
 
 export default function CampaignRoutes(app) {
   router.post("/create", CampaignController.createCampaign);

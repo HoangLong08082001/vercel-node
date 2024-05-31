@@ -3,8 +3,8 @@ const request = require("request");
 const axios = require("axios");
 const WebSocket = require("ws");
 const { response } = require("express");
-import pool from "../config/database";
-import WebhookModal from "./WebhookModal";
+const pool = require ("../config/database.js");
+const  WebhookModal = require ("./WebhookModal.js");
 const dotenv = require("dotenv");
 dotenv.config();
 

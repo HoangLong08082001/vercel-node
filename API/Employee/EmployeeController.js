@@ -1,6 +1,9 @@
-const pool = require("../../config/database");
-import { createJwtReNew, createJwtWebsite } from "../../middleware/JwtAction";
-import ServiceEmployee from "./EmployeeModal";
+const pool = require("../../config/database.js");
+const {
+  createJwtReNew,
+  createJwtWebsite,
+} = require ("../../middleware/JwtAction.js");
+const { ServiceEmployee } = require("./EmployeeModal.js");
 const bcrypt = require("bcrypt");
 const salt = 10;
 

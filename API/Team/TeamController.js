@@ -1,5 +1,5 @@
-const pool = require("../../config/database");
-const { TeamModal } = require("./TeanModal");
+const pool = require("../../config/database.js");
+const { TeamModal } = require("./TeanModal.js");
 
 const createTeam = (req, res) => {
   try {

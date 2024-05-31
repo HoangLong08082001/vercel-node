@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 export default function LogsRoutes(app) {
   //Collaborator
   router.post("/register", CollaboratorController.registerAccount);

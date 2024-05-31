@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-import pool from "../config/database";
-import { ServiceRenewPage } from "./ViewsModal";
+const pool = require ("../config/database.js");
+const { ServiceRenewPage } = require ("./ViewsModal.js");
 const salt = 10;
 
 const repasswordPage = (req, res) => {

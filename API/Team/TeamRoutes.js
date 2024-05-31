@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-import TeamController from "./TeamController";
+const TeamController = require ("./TeamController.js");
 export default function TeamRoutes(app) {
   router.get("/all-team", TeamController.getAllTeam);
   router.post("/create", TeamController.createTeam);

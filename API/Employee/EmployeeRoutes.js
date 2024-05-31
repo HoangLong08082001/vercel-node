@@ -1,5 +1,5 @@
 const express = require("express");
-import EmployeeController from "./EmployeeController";
+const EmployeeController = require ("./EmployeeController.js");
 const router = express.Router();
 export default function EmployeeRoutes(app) {
   router.post("/create", EmployeeController.createEmployee);

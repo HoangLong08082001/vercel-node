@@ -1,11 +1,11 @@
-const pool = require("../../config/database");
-const { ServiceDepartment } = require("./DepartmentModal");
+const pool = require("../../config/database.js");
+const { ServiceDepartment } = require("./DepartmentModal.js");
 
 const createDepartment = (req, res) => {
   let name = req.body.name;
   pool.query(ServiceDepartment.checkExists, [name], (err, result) => {
     if (err) {
-        throw err;
+      throw err;
     }
     if (result.length > 0) {
       return res
@@ -14,7 +14,7 @@ const createDepartment = (req, res) => {
     } else {
       pool.query(ServiceDepartment.create, [name], (err, data) => {
         if (err) {
-        throw err;
+          throw err;
         }
         if (data) {
           return res.status(200).json({ message: "success" });

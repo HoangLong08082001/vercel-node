@@ -1,5 +1,5 @@
-const pool = require("../../config/database");
-import ServiceCampaign from "./CampaignModal";
+const pool = require("../../config/database.js");
+const { ServiceCampaign } = require("./CampaignModal.js");
 
 //id_collaborator	id_orders	link_product	name_campaign	personal_tax	affiliate_tax	description	date_start	date_end
 const createCampaign = (req, res) => {
@@ -32,7 +32,7 @@ const createCampaign = (req, res) => {
   );
 };
 const deleteCampaign = (req, res) => {
-  return res.send("Delete")
+  return res.send("Delete");
 };
 
 module.exports = { createCampaign, deleteCampaign };
