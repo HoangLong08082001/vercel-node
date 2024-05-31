@@ -1,121 +1,132 @@
+import {
+  getCarrierServices,
+  getCarrierServicesById,
+  getCollectById,
+  getCollects,
+  getCollectsTotal,
+  getCustomCollectMetafields,
+  getCustomCollects,
+  getCustomCollectsEvents,
+  getCustomCollectsId,
+  getCustomCollectsTotal,
+  getCustomerById,
+  getCustomers,
+  getCustomersAddress,
+  getCustomersIdAddressId,
+  getCustomersMetafields,
+  getEvents,
+  getEventsTotal,
+  getFulfillment,
+  getFulfillmentById,
+  getFulfillmentTotal,
+  getMetafieldTotal,
+  getMetafields,
+  getOrderById,
+  getOrderTotal,
+  getOrders,
+  getOrdersEvents,
+  getOrdersMetafields,
+  getPriceRule,
+  getPriceRuleById,
+  getProductById,
+  getProductTotal,
+  getProducts,
+  getProductsByIdMetafields,
+  getProductsEvents,
+  getProductsMetafields,
+  getRedirect,
+  getRedirectById,
+  getRedirectTotal,
+  getRefund,
+  getStores,
+  getTotalCustomers,
+  getTransaction,
+  getTransactionById,
+  getTransactionTotal,
+  getVariants,
+} from "./WebhookController";
+
 const express = require("express");
-const WebhookController = require ("./WebhookController.js");
 const router = express.Router();
 export default function WebhookRoute(app) {
   //orders
-  router.get("/orders", WebhookController.getOrders);
-  router.get("/orders-by-id/:orders_id", WebhookController.getOrderById);
-  router.get("/orders-total", WebhookController.getOrderTotal);
+  router.get("/orders", getOrders);
+  router.get("/orders-by-id/:orders_id", getOrderById);
+  router.get("/orders-total", getOrderTotal);
   //customers
-  router.get("/customers", WebhookController.getCustomers);
-  router.get(
-    "/customer-by-id/:customers_id",
-    WebhookController.getCustomerById
-  );
-  router.get("/customers-total", WebhookController.getTotalCustomers);
+  router.get("/customers", getCustomers);
+  router.get("/customer-by-id/:customers_id", getCustomerById);
+  router.get("/customers-total", getTotalCustomers);
   //customers address
-  router.get(
-    "/custommer-address/:customers_id",
-    WebhookController.getCustomersAddress
-  );
+  router.get("/custommer-address/:customers_id", getCustomersAddress);
   router.get(
     "/customerId/:customers_id/addressId/:address_id",
-    WebhookController.getCustomersIdAddressId
+    getCustomersIdAddressId
   );
   //store
-  router.get("/store", WebhookController.getStores);
+  router.get("/store", getStores);
   //products
-  router.get("/products", WebhookController.getProducts);
-  router.get("/product-by-id/:products_id", WebhookController.getProductById);
-  router.get("/products-total", WebhookController.getProductTotal);
+  router.get("/products", getProducts);
+  router.get("/product-by-id/:products_id", getProductById);
+  router.get("/products-total", getProductTotal);
   //collects
-  router.get("/collects", WebhookController.getCollects);
-  router.get("/collect-by-id/:collects_id", WebhookController.getCollectById);
-  router.get("/collects-total", WebhookController.getCollectsTotal);
+  router.get("/collects", getCollects);
+  router.get("/collect-by-id/:collects_id", getCollectById);
+  router.get("/collects-total", getCollectsTotal);
   //Custom collection
-  router.get("/custom-collect", WebhookController.getCustomCollects);
-  router.get(
-    "/custom-collect-by-id/:custom_collect_id",
-    WebhookController.getCustomCollectsId
-  );
-  router.get(
-    "/custom-collect-total/:products_id",
-    WebhookController.getCustomCollectsTotal
-  );
+  router.get("/custom-collect", getCustomCollects);
+  router.get("/custom-collect-by-id/:custom_collect_id", getCustomCollectsId);
+  router.get("/custom-collect-total/:products_id", getCustomCollectsTotal);
   //Events
-  router.get("/all-events", WebhookController.getEvents);
+  router.get("/all-events", getEvents);
   router.get(
     "/events-custom-collects/:custom_collect_events_id",
-    WebhookController.getCustomCollectsEvents
+    getCustomCollectsEvents
   );
-  router.get("/events-orders/:orders_id", WebhookController.getOrdersEvents);
-  router.get(
-    "/events-products/:products_id",
-    WebhookController.getProductsEvents
-  );
-  router.get("/events-total", WebhookController.getEventsTotal);
+  router.get("/events-orders/:orders_id", getOrdersEvents);
+  router.get("/events-products/:products_id", getProductsEvents);
+  router.get("/events-total", getEventsTotal);
   //Fulfillment
-  router.get("/fulfillment/:orders_id", WebhookController.getFulfillment);
+  router.get("/fulfillment/:orders_id", getFulfillment);
   router.get(
     "/fulfillment-by-id/:orders_id/:fulfillment_id",
-    WebhookController.getFulfillmentById
+    getFulfillmentById
   );
-  router.get(
-    "/fulfillment-total/:orders_id",
-    WebhookController.getFulfillmentTotal
-  );
+  router.get("/fulfillment-total/:orders_id", getFulfillmentTotal);
   //Metafields
-  router.get("/metafields", WebhookController.getMetafields);
+  router.get("/metafields", getMetafields);
   router.get(
     "/metafields-custom-collect/:custom_collection_id",
-    WebhookController.getCustomCollectMetafields
+    getCustomCollectMetafields
   );
-  router.get(
-    "/metafields-customers/:customers_id",
-    WebhookController.getCustomersMetafields
-  );
-  router.get(
-    "/metafields-orders/:orders_id",
-    WebhookController.getOrdersMetafields
-  );
-  router.get(
-    "/metafields-products/:products_id",
-    WebhookController.getProductsMetafields
-  );
-  router.get(
-    "/metafields-products-by-id",
-    WebhookController.getProductsByIdMetafields
-  ); //delay
-  router.get("/metafields-total", WebhookController.getMetafieldTotal);
+  router.get("/metafields-customers/:customers_id", getCustomersMetafields);
+  router.get("/metafields-orders/:orders_id", getOrdersMetafields);
+  router.get("/metafields-products/:products_id", getProductsMetafields);
+  router.get("/metafields-products-by-id", getProductsByIdMetafields); //delay
+  router.get("/metafields-total", getMetafieldTotal);
   //price rule
-  router.get("/price-rule", WebhookController.getPriceRule);
-  router.get(
-    "/price-rule-by-id/:priceRule_id",
-    WebhookController.getPriceRuleById
-  ); //delay
+  router.get("/price-rule", getPriceRule);
+  router.get("/price-rule-by-id/:priceRule_id", getPriceRuleById); //delay
   //Refunds
-  router.get("/refund/:orders_id", WebhookController.getRefund);
+  router.get("/refund/:orders_id", getRefund);
   //Transaction
-  router.get("/transaction/:orders_id", WebhookController.getTransaction);
+  router.get("/transaction/:orders_id", getTransaction);
   router.get(
     "/transaction-by-id/:orders_id/:transaction_id",
-    WebhookController.getTransactionById
+    getTransactionById
   ); //delay
-  router.get(
-    "/transaction-total/:orders_id",
-    WebhookController.getTransactionTotal
-  );
+  router.get("/transaction-total/:orders_id", getTransactionTotal);
   //Carrier Service
-  router.get("/carrier-service", WebhookController.getCarrierServices);
+  router.get("/carrier-service", getCarrierServices);
   router.get(
     "/carrier-service-by-id/:carrier_services_id",
-    WebhookController.getCarrierServicesById
+    getCarrierServicesById
   ); //delay
   //Redirect
-  router.get("/redirect", WebhookController.getRedirect);
-  router.get("/redirect-by-id/:redirect_id", WebhookController.getRedirectById); //delay
-  router.get("/redirect-total", WebhookController.getRedirectTotal);
+  router.get("/redirect", getRedirect);
+  router.get("/redirect-by-id/:redirect_id", getRedirectById); //delay
+  router.get("/redirect-total", getRedirectTotal);
   //Variant
-  router.get("/products-variant", WebhookController.getVariants);
+  router.get("/products-variant", getVariants);
   return app.use("/webhook", router);
 }

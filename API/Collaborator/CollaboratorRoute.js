@@ -1,6 +1,6 @@
 import express from "express";
-const router = express.Router();
 import CollaboratorController from "./CollaboratorController.js";
+const router = express.Router();
 export default function CollaboratorRoute(app) {
   router.post("/register", CollaboratorController.registerAccount);
   router.post("/login", CollaboratorController.loginAccount);
