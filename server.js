@@ -11,7 +11,7 @@ import TeamRoutes from "./API/Team/TeamRoutes.js";
 import "./config/database.js";
 import ViewRoutes from "./routes-views/routers.js";
 import WebhookRoute from "./WEBHOOK/WebhookRoute.js";
-const logger = require ("./middleware/logger.js");
+const logger = require("./middleware/logger.js");
 import EmployeeRoutes from "./API/Employee/EmployeeRoutes.js";
 import DepartmentRoutes from "./API/Department/DepartmentRoutes.js";
 import CampaignRoutes from "./API/Campaign/CampaignRoutes.js";
@@ -21,7 +21,7 @@ const io = socketIO();
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
-let port = process.env.PORT_SERVER || 3031;
+const port = process.env.PORT || 4000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
