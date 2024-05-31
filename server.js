@@ -64,7 +64,7 @@ EmployeeRoutes(app);
 DepartmentRoutes(app);
 CampaignRoutes(app);
 
-app.listen(port, (err) => {
+app.listen(port, "0.0.0.0", (err) => {
   if (err) {
     throw err;
   } else {
