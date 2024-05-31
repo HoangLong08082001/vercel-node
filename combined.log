@@ -266,3 +266,10 @@
 2024-05-30T14:07:31.529Z [info]: Request: POST /collaborator/login/ from IP: 116.110.43.113, OS: Other 0.0.0
 2024-05-30T15:23:59.024Z [info]: Request: POST /employee/login from IP: 116.110.43.113, OS: Mac OS X 10.15.7
 2024-05-30T15:27:23.163Z [info]: Request: POST /employee/login from IP: 116.110.43.113, OS: Mac OS X 10.15.7
+2024-05-31T02:53:18.748Z [info]: Request: GET /webhook/orders from IP: 127.0.0.1, OS: Mac OS X 10.15.7
+2024-05-31T02:53:32.665Z [info]: Request: GET / from IP: 127.0.0.1, OS: Mac OS X 10.15.7
+2024-05-31T02:54:06.924Z [info]: Request: GET / from IP: 127.0.0.1, OS: Mac OS X 10.15.7
+2024-05-31T02:54:09.099Z [info]: Request: GET /ws/ws from IP: 127.0.0.1, OS: Mac OS X 10.15.7
+2024-05-31T02:54:16.151Z [info]: Request: GET /webhook/orders from IP: 127.0.0.1, OS: Mac OS X 10.15.7
+2024-05-31T02:54:18.896Z [info]: Request: GET /webhook/ws/ws from IP: 127.0.0.1, OS: Mac OS X 10.15.7
+2024-05-31T02:54:19.074Z [info]: Request: GET /favicon.ico from IP: 127.0.0.1, OS: Mac OS X 10.15.7
