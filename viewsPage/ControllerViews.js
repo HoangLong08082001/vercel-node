@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const pool = require("../config/database.js");
-const { ServiceRenewPage } = require("./ViewsModal.js");
+import pool from "../config/database";
+import { ServiceRenewPage } from "./ViewsModal";
 const salt = 10;
 
 const repasswordPage = (req, res) => {
@@ -14,12 +14,12 @@ const renewPassword = (req, res) => {
   try {
     bcrypt.hash(password, salt, (err, hash) => {
       if (err) {
-        throw err;
+        return res.status(500).json({ message: "fails" });
       }
       if (hash) {
         pool.query(ServiceRenewPage.renew, [hash, email], (err, result) => {
           if (err) {
-            throw err;
+            return res.status(500).json({ message: "fails" });
           }
           if (result) {
             return res.render("success");
