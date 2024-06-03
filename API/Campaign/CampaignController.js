@@ -92,6 +92,8 @@ const getAllCampaign = (req, res) => {
   );
 };
 
+
+
 // const GetCampaign = async (req, res) => {
 //   try {
 //     let id_collaborator = req.params.id
@@ -134,8 +136,56 @@ const getAllCampaign = (req, res) => {
 //     return res.status(500).json({ message: "error", error: err });
 //   }
 // }
-const deleteCampaign = (req, res) => {
-  return res.send("Delete");
-};
+const deleteCampaign = async (req, res) => {
+  const id_campaign = req.body.id_campaign;
 
-module.exports = { createCampaign, deleteCampaign, getAllCampaign };
+  try {
+    const [campaignProducts] = await pool.query(
+      "SELECT * FROM `campaign_products` WHERE id_campaign = ?;",
+      [id_campaign]
+    );
+
+    if (campaignProducts.length > 0) {
+      await pool.query("DELETE FROM `campaign_products` WHERE id_campaign = ?", [id_campaign]);
+    }
+
+    await pool.query("DELETE FROM `campaign` WHERE id_campaign = ?", [id_campaign]);
+    return res.status(200).json({ message: "success", data: "Chiến dịch xóa thành công!" });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+// return res.send("Delete");
+// };
+
+const UpdateCamipan = async (req, res) => {
+  let id_campaign = req.body.id_campaign;
+  let link = req.body.link;
+  let name = req.body.name;
+  let personal_tax = req.body.personal_tax;
+  let affiliate_tax = req.body.affiliate_tax;
+  let description = req.body.description;
+  let date_start = req.body.date_start;
+  let date_end = req.body.date_end;
+
+  try {
+    await pool.query(
+      "UPDATE `campaign` SET `link_product`=?, `name_campaign`=?, `personal_tax`=?, `affiliate_tax`=?, `description`=?, `date_start`=?, `date_end`=? WHERE id_campaign = ?;",
+      [link, name, personal_tax, affiliate_tax, description, date_start, date_end, id_campaign], (err, result) => {
+        if (err) {
+          return res.status(400).json({ message: err.message });
+        }
+        if (result.affectedRows > 0) {
+          return res.status(200).json({ message: "Cập nhật thành công!" });
+        } else {
+          return res.status(404).json({ message: "Chiến dịch không tồn tại!", affectedRows: result.affectedRows });
+        }
+      }
+    );
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+}
+
+
+module.exports = { createCampaign, deleteCampaign, getAllCampaign, UpdateCamipan };

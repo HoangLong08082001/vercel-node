@@ -5,5 +5,9 @@ class ServiceEmployee {
   static checkLogin = "SELECT * FROM employee WHERE username=? OR phone=?";
   static checkPermission =
     "SELECT department.name_department, rule.rule, employee.username, employee.phone, employee.status FROM department_rule left join department on department_rule.id_department=department.id_department left join rule on department_rule.id_rule = rule.id_rule left join employee on employee.id_department=department.id_department WHERE employee.username=?";
+  static update =
+    '`UPDATE employee SET ${updateFields.join(", ")} WHERE username = ?;`';
+
+
 }
 module.exports = { ServiceEmployee };

@@ -2,7 +2,7 @@ const pool = require("../../config/database.js");
 const {
   createJwtReNew,
   createJwtWebsite,
-} = require ("../../middleware/JwtAction.js");
+} = require("../../middleware/JwtAction.js");
 const { ServiceEmployee } = require("./EmployeeModal.js");
 const bcrypt = require("bcrypt");
 const salt = 10;
@@ -89,4 +89,66 @@ const loginEmployee = (req, res) => {
   });
 };
 
-module.exports = { createEmployee, loginEmployee };
+const UpdateEmployee = (req, res) => {
+  const { name, email, username, phone } = req.body;
+
+  // Chỉ thực hiện cập nhật nếu có giá trị tương ứng
+  let updateFields = [];
+  let queryParams = [];
+
+  if (name) {
+    updateFields.push("`name` = ?");
+    queryParams.push(name);
+  }
+  if (email) {
+    updateFields.push("`email` = ?");
+    queryParams.push(email);
+  }
+  if (username) {
+    updateFields.push("`username` = ?");
+    queryParams.push(username);
+  }
+  if (phone) {
+    updateFields.push("`phone` = ?");
+    queryParams.push(phone);
+  }
+
+  // Thêm điều kiện WHERE vào cuối danh sách tham số
+  queryParams.push(req.body.currentUsername);
+
+  // Xây dựng câu truy vấn động
+
+  pool.query(ServiceEmployee.update, queryParams, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ message: "fails" });
+    }
+    if (result.affectedRows > 0) {
+      // console.log(result);
+      return res.status(200).json({ message: "success", data: result });
+    } else {
+      return res.status(404).json({ message: "Không tìm thấy tài khoản!" });
+    }
+  });
+
+}
+
+const DeleteEmployee = (req, res) => {
+  const username = req.body.username;
+
+  pool.query("DELETE FROM `employee` WHERE username = ?", [username], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ message: "fails" });
+    }
+    if (result.affectedRows > 0) {
+      // console.log(result);
+      return res.status(200).json({ message: "success", data: result });
+    } else {
+      return res.status(404).json({ message: "Không tìm thấy tài khoản!" });
+    }
+  })
+
+}
+
+module.exports = { createEmployee, loginEmployee, UpdateEmployee, DeleteEmployee };
