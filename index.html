@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Real-time Logs</title>
+    <style>
+        #logs {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            height: 400px;
+            overflow-y: scroll;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Real-time Logs</h1>
+    <div id="logs"></div>
+
+    <script>
+        const logsDiv = document.getElementById('logs');
+
+        // Tạo kết nối WebSocket
+        const socket = new WebSocket('ws://localhost:3030');
+
+        // Xử lý sự kiện mở kết nối WebSocket
+        socket.addEventListener('open', function (event) {
+            console.log('Connected to WebSocket server');
+        });
+
+        // Xử lý sự kiện nhận message từ WebSocket server
+        socket.addEventListener('message', function (event) {
+            const data = JSON.parse(event.data);
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = data.log;
+            logsDiv.appendChild(logEntry);
+            logsDiv.scrollTop = logsDiv.scrollHeight; // Tự động cuộn xuống cuối
+        });
+
+        // Xử lý sự kiện đóng kết nối WebSocket
+        socket.addEventListener('close', function (event) {
+            console.log('Disconnected from WebSocket server');
+        });
+    </script>
+</body>
+
+</html>

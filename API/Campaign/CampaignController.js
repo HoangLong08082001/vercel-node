@@ -63,50 +63,79 @@ const createCampaign = (req, res) => {
 
 
 // }
-const GetCampaign = async (req, res) => {
-  try {
-    let id_collaborator = req.params.id
-    // Truy vấn tất cả các chiến dịch
-    const campaigns = await new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM campaign ', (err, results) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve(results);
-      });
-    });
-
-    for (let index = 0; index < campaigns.length; index++) {
-      const products = await new Promise((resolve, reject) => {
-        pool.query(
-          "SELECT p.*, cp.id_campaign FROM products p INNER JOIN campaign_products cp ON p.id_products = cp.id_products WHERE cp.id_campaign = ?;",
-          [campaigns[index].id_campaign],
-          (err, results) => {
-            if (err) {
-              return reject(err);
-            }
-            if (results) {
-              results.forEach(element => {
-                element.link_affilate = campaigns[index].link_product + element.alias + "/bwaf=" + id_collaborator;
-              });
-            }
-            resolve(results);
+const getAllCampaign = (req, res) => {
+  pool.query(
+    "SELECT * FROM campaign JOIN campaign_products ON campaign.id_campaign = campaign_products.id_campaign JOIN products ON campaign_products.id_products = products.id_products",
+    [],
+    (err, data) => {
+      if (err) {
+        throw err;
+      }
+      if (data) {
+        const campaign = {};
+        let url = null;
+        data.forEach((row) => {
+          url = row.link_product;
+          if (!campaign[row.name_campaign]) {
+            campaign[row.name_campaign] = {
+              name: row.name_campaign,
+              products: [],
+            };
           }
-        );
-      });
-      campaigns[index].products = products;
+          campaign[row.name_campaign].products.push({
+            alias: url + row.alias + "/?bwaf=",
+          });
+        });
+        return res.status(200).json({ data: campaign });
+      }
     }
+  );
+};
 
-    // Trả về kết quả
-    return res.status(200).json({ message: "success", data: campaigns });
+// const GetCampaign = async (req, res) => {
+//   try {
+//     let id_collaborator = req.params.id
+//     // Truy vấn tất cả các chiến dịch
+//     const campaigns = await new Promise((resolve, reject) => {
+//       pool.query('SELECT * FROM campaign ', (err, results) => {
+//         if (err) {
+//           return reject(err);
+//         }
+//         resolve(results);
+//       });
+//     });
 
-  } catch (err) {
-    console.error('Error:', err);
-    return res.status(500).json({ message: "error", error: err });
-  }
-}
+//     for (let index = 0; index < campaigns.length; index++) {
+//       const products = await new Promise((resolve, reject) => {
+//         pool.query(
+//           "SELECT p.*, cp.id_campaign FROM products p INNER JOIN campaign_products cp ON p.id_products = cp.id_products WHERE cp.id_campaign = ?;",
+//           [campaigns[index].id_campaign],
+//           (err, results) => {
+//             if (err) {
+//               return reject(err);
+//             }
+//             if (results) {
+//               results.forEach(element => {
+//                 element.link_affilate = campaigns[index].link_product + element.alias + "/bwaf=" + id_collaborator;
+//               });
+//             }
+//             resolve(results);
+//           }
+//         );
+//       });
+//       campaigns[index].products = products;
+//     }
+
+//     // Trả về kết quả
+//     return res.status(200).json({ message: "success", data: campaigns });
+
+//   } catch (err) {
+//     console.error('Error:', err);
+//     return res.status(500).json({ message: "error", error: err });
+//   }
+// }
 const deleteCampaign = (req, res) => {
   return res.send("Delete");
 };
 
-module.exports = { createCampaign, deleteCampaign, GetCampaign };
+module.exports = { createCampaign, deleteCampaign, getAllCampaign };
