@@ -118,7 +118,7 @@ const UpdateEmployee = (req, res) => {
 
   // Xây dựng câu truy vấn động
 
-  pool.query(ServiceEmployee.update, queryParams, (err, result) => {
+  pool.query(ServiceEmployee.update(updateFields), queryParams, (err, result) => {
     if (err) {
       console.log(err);
       return res.status(500).json({ message: "fails" });
